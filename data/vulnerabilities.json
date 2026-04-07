@@ -1,0 +1,32 @@
+[
+  {
+    "asset_id": "DC01",
+    "hostname": "10.0.0.10",
+    "cve": "CVE-2020-1472",
+    "title": "Zerologon",
+    "cvss": 10.0,
+    "exploit_available": true,
+    "internet_exposed": false,
+    "asset_criticality": "critical"
+  },
+  {
+    "asset_id": "WEB01",
+    "hostname": "10.0.0.60",
+    "cve": "CVE-2021-41773",
+    "title": "Apache Path Traversal",
+    "cvss": 7.5,
+    "exploit_available": true,
+    "internet_exposed": true,
+    "asset_criticality": "critical"
+  },
+  {
+    "asset_id": "WS01",
+    "hostname": "10.0.0.22",
+    "cve": "CVE-2021-34527",
+    "title": "PrintNightmare",
+    "cvss": 8.8,
+    "exploit_available": true,
+    "internet_exposed": false,
+    "asset_criticality": "high"
+  }
+]

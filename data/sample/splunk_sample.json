@@ -1,0 +1,13 @@
+[
+  {
+    "alert_id": "splunk-001",
+    "event_type": "http_login",
+    "src_ip": "10.0.0.50",
+    "dst_ip": "10.0.0.60",
+    "http": {
+      "method": "POST",
+      "uri": "/login.php",
+      "user_agent": "python-requests/2.28"
+    }
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "search_name": "Excessive Failed Logins",
+    "_time": "2026-04-05T19:10:00Z",
+    "src_ip": "192.168.1.50",
+    "dest_ip": "10.0.0.10",
+    "user": "admin",
+    "signature": "Multiple failed logins detected",
+    "severity": "high"
+  },
+  {
+    "search_name": "Encoded PowerShell Execution",
+    "_time": "2026-04-05T19:15:00Z",
+    "src_ip": "10.0.0.20",
+    "dest_ip": "10.0.0.20",
+    "user": "corp\\jdoe",
+    "process_name": "powershell.exe",
+    "command_line": "powershell -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkA",
+    "signature": "Encoded PowerShell command observed",
+    "severity": "critical"
+  },
+  {
+    "search_name": "PsExec Remote Service Execution",
+    "_time": "2026-04-05T19:20:00Z",
+    "src_ip": "10.0.0.30",
+    "dest_ip": "10.0.0.25",
+    "user": "corp\\jdoe",
+    "process_name": "psexec.exe",
+    "signature": "Remote service execution using PsExec",
+    "severity": "high"
+  }
+]

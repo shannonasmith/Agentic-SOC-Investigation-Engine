@@ -1,0 +1,12 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	http
+#open	2026-04-05-18-20-00
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	trans_depth	method	host	uri	referrer	version	user_agent	request_body_len	response_body_len	status_code	status_msg	info_code	info_msg	tags	username	password	proxied	orig_fuids	orig_filenames	orig_mime_types	resp_fuids	resp_filenames	resp_mime_types
+#types	time	string	addr	port	addr	port	count	string	string	string	string	string	string	count	count	count	string	count	string	set[string]	string	string	vector[string]	vector[string]	vector[string]	vector[string]	vector[string]	vector[string]
+1712341225.333333	C1abcDEF003	10.0.0.50	51516	10.0.0.60	80	1	GET	dvwa.local	/login.php	-	1.1	Mozilla/5.0	0	1820	200	OK	-	-	-	-	-	-	-	-	-	-	-	text/html
+1712341235.555555	C1abcDEF004	10.0.0.50	51517	10.0.0.60	80	1	POST	dvwa.local	/vulnerabilities/upload/	-	1.1	curl/8.4.0	542	210	200	OK	-	-	-	-	-	-	-	-	-	-	shell.php	text/x-php
+1712341240.777777	C1abcDEF005	10.0.0.50	51518	198.51.100.25	80	1	GET	update.example.com	/payloads/agent.zip	-	1.1	python-requests/2.31.0	0	145920	200	OK	-	-	-	-	-	-	-	-	-	Fj82sD	agent.zip	application/zip
+#close	2026-04-05-18-25-00
