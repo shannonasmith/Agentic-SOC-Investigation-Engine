@@ -4,16 +4,16 @@
 ### ATT&CK Mapping • AI-Assisted Analysis • SOAR • Stateful Investigation
 
 ![Category](https://img.shields.io/badge/Category-SOC%20Engineering-red?style=for-the-badge)
-![Focus](https://img.shields.io/badge/Focus-Incident%20Response%20%7C%20ATT%26CK%20Mapping-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Incident%20Response%20%7C%20ATT&CK%20Mapping-blue?style=for-the-badge)
 ![Tech](https://img.shields.io/badge/Tech-Automation%20%2B%20Detection%20Engineering-black?style=for-the-badge)
 
 </div>
 
 <div align="center">
-  <img src="images/05-investigation-agent-output.png" width="700">
+  <img src="images/demo.gif" width="1000">
 </div>
 
-<p align="center"><em>Figure 1. Investigation output showing response recommendations after contextual analysis and iterative investigation.</em></p>
+<p align="center"><em>Figure 1. End-to-end SOC investigation pipeline demonstrating ingestion → detection → analysis → response.</em></p>
 
 ---
 
@@ -62,45 +62,37 @@ Instead of treating alerts as isolated events, the system demonstrates how SOC w
 | 🔁 Investigation | Iterative analysis and correlation |
 | 🚨 Response Recommendation | Final actions based on confidence and risk |
 
-<div align="center">
-
 🔍 **From Detection → Context → Decision**
-
-</div>
 
 ---
 
 ## ⚙️ 🔬 Inside the System (Technical Pipeline)
 
-<div align="center">
-
 ### 🧩 From Detection to Decision — Step by Step
-
-</div>
 
 ```text
 🟦 Detection
-   ↓
+       ↓
 🟨 Triage Scoring
-   ↓
+       ↓
 🧠 ATT&CK Candidate Retrieval (TF-IDF)
-   ↓
+       ↓
 🔎 Semantic Reranking (Embeddings)
-   ↓
+       ↓
 ⚖️ Hybrid ATT&CK Scoring
-   ↓
+       ↓
 🟪 SOAR Playbook Selection
-   ↓
+       ↓
 🤖 AI Analyst Explanation
-   ↓
+       ↓
 🧬 IOC Enrichment
-   ↓
+       ↓
 ⚠️ Vulnerability Context
-   ↓
+       ↓
 🏢 Asset Criticality Context
-   ↓
+       ↓
 🔁 Stateful Investigation Loop
-   ↓
+       ↓
 🚨 Response Recommendation
 ```
 
@@ -218,13 +210,13 @@ This system moves beyond detection into:
 
 ---
 
-## ⚙️ Step 1 — Project Structure
+## ⚙️ Step 1 — Log Ingestion
 
 <div align="center">
-  <img src="images/01-project-structure.png" width="600">
+  <img src="images/01-ingestion-pipeline.png" width="700">
 </div>
 
-<p align="center"><em>Figure 2. Modular structure separating mapping, enrichment, and agent logic.</em></p>
+<p align="center"><em>Figure 3. Logs ingested and normalized into structured alerts for analysis.</em></p>
 
 ---
 
@@ -234,7 +226,7 @@ This system moves beyond detection into:
   <img src="images/02-attack-mapping-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 3. Ranked ATT&CK techniques with confidence scoring.</em></p>
+<p align="center"><em>Figure 4. Ranked ATT&CK techniques with confidence scoring.</em></p>
 
 ---
 
@@ -244,7 +236,7 @@ This system moves beyond detection into:
   <img src="images/03-soar-ai-analyst-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 4. Playbook execution and analyst explanation.</em></p>
+<p align="center"><em>Figure 5. Playbook execution and analyst explanation.</em></p>
 
 ---
 
@@ -254,7 +246,7 @@ This system moves beyond detection into:
   <img src="images/04-asset-vuln-context.png" width="700">
 </div>
 
-<p align="center"><em>Figure 5. Context enrichment influencing prioritization.</em></p>
+<p align="center"><em>Figure 6. Context enrichment influencing prioritization.</em></p>
 
 ---
 
@@ -264,7 +256,7 @@ This system moves beyond detection into:
   <img src="images/05-investigation-agent-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 6. Agent recommending response actions after confidence threshold is reached.</em></p>
+<p align="center"><em>Figure 7. Agent recommending response actions after confidence threshold is reached.</em></p>
 
 ---
 
@@ -274,7 +266,89 @@ This system moves beyond detection into:
   <img src="images/06-threat-hunting-findings.png" width="700">
 </div>
 
-<p align="center"><em>Figure 7. Threat hunting layer identifying broader attack patterns.</em></p>
+<p align="center"><em>Figure 8. Threat hunting layer identifying broader attack patterns.</em></p>
+
+---
+
+## 🧠 Engine Breakdown (How It Works)
+
+<div align="center">
+  <img src="images/07-project-structure.png" width="700">
+</div>
+
+<p align="center"><em>Figure 9. Project structure showing separation of pipeline, modules, and core engine logic.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/08-core-engine-structure.png" width="700">
+</div>
+
+<p align="center"><em>The core engine manages ATT&CK ingestion, preprocessing, embedding generation, and mapping orchestration.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/09-modules-layout.png" width="700">
+</div>
+
+<p align="center"><em>Modules separate concerns such as AI reasoning, SOAR logic, vulnerability context, and threat hunting.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/10-attack-corpus-source.png" width="700">
+</div>
+
+<p align="center"><em>The ATT&CK dataset is transformed into a structured corpus used for retrieval and scoring.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/11-tfidf-retrieval-test.png" width="700">
+</div>
+
+<p align="center"><em>TF-IDF retrieves candidate techniques before deeper semantic analysis.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/12-scoring-logic.png" width="700">
+</div>
+
+<p align="center"><em>Rule-based scoring reinforces known behaviors and improves mapping precision.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/13-zeek-ingestion-success.png" width="700">
+</div>
+
+<p align="center"><em>Zeek logs are successfully ingested and normalized into structured alerts.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/14-normalized-alerts-preview.png" width="700">
+</div>
+
+<p align="center"><em>Alerts are standardized into a consistent schema for processing.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/15-analysis-output-files.png" width="700">
+</div>
+
+<p align="center"><em>The system generates structured outputs including mappings, summaries, and reports.</em></p>
+
+---
+
+<div align="center">
+  <img src="images/16-web-shell-detection-result.png" width="700">
+</div>
+
+<p align="center"><em>Example detection of web shell activity mapped to ATT&CK technique T1505.003.</em></p>
 
 ---
 
