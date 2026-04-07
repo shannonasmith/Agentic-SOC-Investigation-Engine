@@ -382,15 +382,81 @@ Recommended Next Steps:
 
 ## ⚙️ How to Run
 
-git clone https://github.com/YOUR_USERNAME/Agentic-SOC-Investigation-Engine.git  
-cd Agentic-SOC-Investigation-Engine  
+### 1. Clone the Repository
 
-python3 -m venv .venv  
-source .venv/bin/activate  
+```bash
+git clone https://github.com/YOUR_USERNAME/Agentic-SOC-Investigation-Engine.git
+cd Agentic-SOC-Investigation-Engine
+```
 
-pip install -r requirements.txt  
+---
 
-python run.py  
+### 2. Create Virtual Environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+> ⚠️ Kali Linux users: ensure you are using a virtual environment to avoid package conflicts.
+
+---
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 4. Run Full Demo Pipeline (Recommended)
+
+```bash
+chmod +x run_demo.sh
+./run_demo.sh
+```
+
+This will:
+- ingest sample logs
+- perform ATT&CK mapping
+- execute SOAR logic
+- run the investigation agent
+- generate output files
+
+---
+
+### 5. Run Manually (Optional)
+
+```bash
+python run.py
+```
+
+---
+
+### 📁 Expected Outputs
+
+After execution, the following files will be generated:
+
+```text
+output/
+├── mapped_alerts.json
+├── normalized_zeek_alerts.json
+├── threat_hunt_findings.json
+├── coverage_summary.json
+```
+
+---
+
+### 🧪 Sample Data
+
+This project includes sample data located in:
+
+```text
+data/sample/
+```
+
+This allows the pipeline to run without external integrations.
 
 ---
 
