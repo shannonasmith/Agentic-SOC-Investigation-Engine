@@ -1,6 +1,6 @@
 <div align="center">
 
-## 🛡️ Agentic SOC Investigation Engine  
+# 🛡️ Agentic SOC Investigation Engine  
 ### ATT&CK Mapping, AI-Assisted Analysis, SOAR Playbooks & Stateful Investigation
 
 ![Category](https://img.shields.io/badge/Category-SOC%20Engineering-red?style=for-the-badge)
@@ -19,23 +19,23 @@
 
 ## 🧠 Scenario
 
-This project simulates how a **modern Security Operations Center (SOC)** can process alerts from detection through response using a combination of:
+This project simulates how a **modern Security Operations Center (SOC)** processes alerts from detection through response using:
 
 - MITRE ATT&CK mapping  
 - SOAR playbooks  
-- AI-assisted analyst output  
-- context enrichment  
+- AI-assisted analyst reasoning  
+- contextual enrichment  
 - vulnerability-aware prioritization  
 - asset criticality awareness  
 - a stateful investigation agent  
 
-Rather than stopping at classification, the system continues through investigation and decision support to recommend response actions.
+Rather than stopping at classification, the system continues through investigation and decision-making to produce actionable response recommendations.
 
 ---
 
 ## 🎯 Objective
 
-The goal of this project was to build a **production-style SOC investigation pipeline** that moves from:
+The goal of this project was to design a **production-style SOC investigation pipeline** that transforms:
 
 Raw Security Alert  
 ↓  
@@ -51,7 +51,7 @@ Stateful Investigation Agent
 ↓  
 Response Recommendation  
 
-This project demonstrates how raw telemetry can be transformed into actionable, explainable security decisions.
+This reflects how real-world SOC workflows move from raw telemetry to operational decisions.
 
 ---
 
@@ -85,30 +85,119 @@ Response Recommendation
 
 ## 🔍 ATT&CK Mapping Engine
 
-This project uses a **hybrid ATT&CK mapping approach** rather than simple keyword matching.
+This system uses a **hybrid ATT&CK mapping approach** rather than simple keyword matching.
 
 ### Mapping pipeline:
-- TF-IDF retrieval generates initial ATT&CK candidates  
-- sentence-transformer embeddings improve semantic similarity ranking  
-- rule-based scoring reinforces behavior-specific detections  
-- field-aware scoring incorporates alert structure  
+- TF-IDF retrieval generates initial technique candidates  
+- embedding similarity improves semantic understanding  
+- rule-based scoring reinforces known behavioral patterns  
+- field-aware scoring incorporates structured alert data  
 - tactic-aware scoring improves contextual alignment  
-- confidence scoring ranks likely ATT&CK techniques  
+- confidence scoring ranks likely techniques  
 
-This approach improves accuracy, explainability, and consistency of mappings.
+This allows the system to produce mappings that are both accurate and explainable.
+
+---
+
+## 🧠 How ATT&CK Mapping Works (and Why It’s Correct)
+
+Mapping alerts to MITRE ATT&CK techniques is not a simple classification problem.
+
+In real SOC environments:
+
+- alerts are noisy and incomplete  
+- multiple techniques share similar characteristics  
+- keyword matching often leads to incorrect classifications  
+
+### 🔍 Design Approach
+
+The system uses a **multi-stage hybrid pipeline**:
+
+1. **TF-IDF Retrieval (Recall Layer)**  
+   Retrieves a broad set of candidate techniques to ensure the correct technique is included  
+
+2. **Embedding-Based Reranking (Semantic Layer)**  
+   Uses sentence-transformers to match meaning, not just keywords  
+
+3. **Rule-Based Scoring (Behavior Layer)**  
+   Applies domain logic for known attack patterns  
+   - brute force → T1110  
+   - encoded PowerShell → T1059.001  
+
+4. **Field-Aware + Tactic-Aware Scoring (Context Layer)**  
+   Uses alert structure and tactic alignment to refine results  
+
+5. **Confidence-Based Ranking**  
+   Combines all signals into a final ranking of techniques  
+
+---
+
+### ✅ Why This Works
+
+> Retrieval determines what is possible — scoring determines what is likely.
+
+If the correct technique is not retrieved early, no amount of scoring can fix it.
+
+This system prioritizes **recall first**, then precision.
+
+---
+
+### 🧪 Validation Approach
+
+The system was validated using known attack scenarios:
+
+- web shell → T1505.003  
+- brute force → T1110  
+- payload transfer → T1105  
+
+Evaluation included:
+
+- Top-1 accuracy ≈ 0.80  
+- Top-3 accuracy ≈ 0.90  
+- false positive reduction testing  
+- ensuring benign traffic was not misclassified  
+
+---
+
+### ⚖️ Tradeoffs
+
+- TF-IDF alone lacks semantic understanding  
+- embeddings alone can over-generalize  
+- rule-based logic improves precision but must be scoped carefully  
+
+The hybrid approach balances:
+
+- recall  
+- semantic understanding  
+- behavioral accuracy  
+
+---
+
+### 🎯 Key Takeaway
+
+The system combines:
+
+- retrieval  
+- semantic similarity  
+- domain knowledge  
+
+to produce ATT&CK mappings that are:
+
+- more accurate  
+- more explainable  
+- more aligned with real SOC workflows  
 
 ---
 
 ## ⚙️ Core Capabilities
 
 ### 1. MITRE ATT&CK Mapping
-- hybrid retrieval and scoring engine  
-- ranked ATT&CK technique candidates  
-- confidence-based mapping output  
+- hybrid retrieval + scoring engine  
+- ranked techniques with confidence scores  
 - ATT&CK Navigator export  
 
 ### 2. SOAR Playbooks
-Implemented response logic for:
+Supports response workflows for:
 - credential access  
 - lateral movement  
 - defense evasion  
@@ -117,38 +206,37 @@ Implemented response logic for:
 - persistence  
 
 ### 3. AI-Assisted Analyst Output
-- contextual explanation of alerts  
-- risk summary  
-- investigation guidance  
-- analyst-friendly output  
+- explains why alerts matter  
+- summarizes risk  
+- provides investigation guidance  
 
 ### 4. IOC Enrichment
 - internal vs external classification  
 - threat indicator tagging  
-- decision influence based on context  
+- influence on decision-making  
 
 ### 5. Vulnerability-Aware Decisioning
-- CVE-based enrichment  
-- risk prioritization  
-- vulnerability context integrated into decisions  
+- CVE-based context  
+- risk-aware prioritization  
+- integrates vulnerability exposure into investigation  
 
 ### 6. Asset Criticality Awareness
-- differentiates high-value systems from standard endpoints  
-- influences prioritization and response decisions  
-- supports business-impact-driven workflows  
+- identifies high-value systems  
+- adjusts prioritization based on impact  
+- supports business-aware decision logic  
 
 ### 7. Threat Hunting Layer
 - identifies high-confidence detections  
 - surfaces high-risk techniques  
-- detects critical vulnerability exposure across alerts  
+- detects vulnerability exposure across alerts  
 
 ### 8. Stateful Investigation Agent
-- initializes case state per alert  
+- maintains case state  
 - selects enrichment actions dynamically  
 - updates confidence after each step  
-- maintains investigation context  
+- determines when to stop  
 - recommends response actions  
-- logs investigation reasoning  
+- logs reasoning for explainability  
 
 ---
 
@@ -157,13 +245,13 @@ Implemented response logic for:
 The system behaves as an agent because it:
 
 - maintains state  
-- selects actions dynamically  
+- selects actions  
 - executes enrichment steps  
 - updates confidence based on evidence  
-- decides when to stop  
-- recommends response actions  
+- determines when to stop  
+- produces response recommendations  
 
-This enables structured, explainable investigation workflows rather than static pipelines.
+This creates a structured, explainable investigation workflow rather than a static pipeline.
 
 ---
 
@@ -187,7 +275,7 @@ This enables structured, explainable investigation workflows rather than static 
   <img src="images/01-project-structure.png" width="600">
 </div>
 
-<p align="center"><em>Figure 2. Project structure showing separation between mapping, SOAR, enrichment, and agent logic.</em></p>
+<p align="center"><em>Figure 2. Modular structure separating mapping, enrichment, and agent logic.</em></p>
 
 ---
 
@@ -197,7 +285,7 @@ This enables structured, explainable investigation workflows rather than static 
   <img src="images/02-attack-mapping-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 3. Hybrid ATT&CK mapping output with ranked techniques and confidence scores.</em></p>
+<p align="center"><em>Figure 3. Ranked ATT&CK techniques with confidence scoring.</em></p>
 
 ---
 
@@ -207,7 +295,7 @@ This enables structured, explainable investigation workflows rather than static 
   <img src="images/03-soar-ai-analyst-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 4. SOAR playbook output and AI-assisted analyst explanation.</em></p>
+<p align="center"><em>Figure 4. Playbook execution and analyst explanation.</em></p>
 
 ---
 
@@ -217,7 +305,7 @@ This enables structured, explainable investigation workflows rather than static 
   <img src="images/04-asset-vuln-context.png" width="700">
 </div>
 
-<p align="center"><em>Figure 5. Vulnerability and asset context influencing prioritization.</em></p>
+<p align="center"><em>Figure 5. Context enrichment influencing prioritization.</em></p>
 
 ---
 
@@ -227,7 +315,7 @@ This enables structured, explainable investigation workflows rather than static 
   <img src="images/05-investigation-agent-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 6. Investigation agent recommending response actions based on confidence.</em></p>
+<p align="center"><em>Figure 6. Agent recommending response actions after confidence threshold is reached.</em></p>
 
 ---
 
@@ -237,7 +325,7 @@ This enables structured, explainable investigation workflows rather than static 
   <img src="images/06-threat-hunting-findings.png" width="700">
 </div>
 
-<p align="center"><em>Figure 7. Threat hunting layer identifying high-risk patterns across alerts.</em></p>
+<p align="center"><em>Figure 7. Threat hunting layer identifying broader attack patterns.</em></p>
 
 ---
 
@@ -261,15 +349,15 @@ Recommended Next Steps:
 
 ## 💡 What This Project Demonstrates
 
-- SOC alert triage workflows  
-- MITRE ATT&CK mapping logic  
+- SOC alert triage and analysis  
+- ATT&CK mapping methodology  
 - hybrid detection scoring  
 - SOAR automation design  
-- AI-assisted analysis  
-- enrichment-driven investigation  
+- AI-assisted investigation  
+- enrichment-driven workflows  
 - vulnerability-aware prioritization  
 - asset-aware decision support  
-- agentic investigation workflows  
+- agentic investigation architecture  
 
 ---
 
@@ -279,11 +367,10 @@ This system simulates:
 
 - SIEM-style alert analysis  
 - ATT&CK classification  
-- contextual enrichment  
-- investigation workflows  
+- contextual investigation workflows  
 - response decision support  
 
-It demonstrates how alerts can move from detection to actionable decisions.
+It demonstrates how alerts move from detection to actionable security decisions.
 
 ---
 
@@ -346,6 +433,12 @@ python run.py
 
 ## 👤 Shannon Smith  
 
-Cybersecurity | SOC Operations • Detection Engineering • Incident Response • AI-Assisted Security  
+Cybersecurity | SOC Operations • Detection Engineering • Incident Response  
+
+U.S. Navy Veteran | Virginia Tech — M.S. Information Technology  
+
+🛡️ Investigating and correlating security events across systems and environments  
+🔎 Designing explainable detection and ATT&CK-aligned analysis workflows  
+⚙️ Building automation and agent-driven approaches to improve SOC efficiency  
 
 </div>
