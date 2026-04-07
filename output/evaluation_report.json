@@ -1,0 +1,95 @@
+{
+  "summary": {
+    "total_alerts": 5,
+    "top1_accuracy": 1.0,
+    "top3_accuracy": 1.0,
+    "top5_accuracy": 1.0
+  },
+  "details": [
+    {
+      "alert_id": "E-001",
+      "expected": [
+        "T1110",
+        "T1110.003"
+      ],
+      "predicted": [
+        "T1110.001",
+        "T1098.003",
+        "T1110.003",
+        "T1621",
+        "T1547.015"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true
+    },
+    {
+      "alert_id": "E-002",
+      "expected": [
+        "T1059",
+        "T1059.001"
+      ],
+      "predicted": [
+        "T1059.001",
+        "T1546.013",
+        "T1059",
+        "T1059.009",
+        "T1562.003"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true
+    },
+    {
+      "alert_id": "E-003",
+      "expected": [
+        "T1021",
+        "T1569",
+        "T1569.002"
+      ],
+      "predicted": [
+        "T1569.002",
+        "T1563",
+        "T1021",
+        "T1036.003",
+        "T1210"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true
+    },
+    {
+      "alert_id": "E-004",
+      "expected": [
+        "T1003"
+      ],
+      "predicted": [
+        "T1003.001",
+        "T1003",
+        "T1003.006",
+        "T1547.008",
+        "T1003.004"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true
+    },
+    {
+      "alert_id": "E-005",
+      "expected": [
+        "T1547",
+        "T1547.001"
+      ],
+      "predicted": [
+        "T1547.001",
+        "T1112",
+        "T1574.011",
+        "T1547",
+        "T1137.002"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true
+    }
+  ]
+}
