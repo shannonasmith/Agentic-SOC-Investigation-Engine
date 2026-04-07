@@ -1,0 +1,52 @@
+[
+  {
+    "alert_id": "splunk-1",
+    "description": "Multiple failed login attempts",
+    "expected_techniques": ["T1110", "T1110.001"]
+  },
+  {
+    "alert_id": "splunk-2",
+    "description": "Encoded PowerShell execution",
+    "expected_techniques": ["T1059.001", "T1027"]
+  },
+  {
+    "alert_id": "splunk-3",
+    "description": "PsExec remote execution",
+    "expected_techniques": ["T1569.002", "T1021"]
+  },
+  {
+    "alert_id": "splunk-4",
+    "description": "LSASS access and credential dumping behavior",
+    "expected_techniques": ["T1003", "T1003.001"]
+  },
+  {
+    "alert_id": "splunk-5",
+    "description": "Suspicious web shell upload over HTTP POST",
+    "expected_techniques": ["T1505.003"]
+  },
+  {
+    "alert_id": "splunk-6",
+    "description": "Payload retrieved from remote server",
+    "expected_techniques": ["T1105"]
+  },
+  {
+    "alert_id": "splunk-7",
+    "description": "RDP logon from unusual source",
+    "expected_techniques": ["T1021.001"]
+  },
+  {
+    "alert_id": "splunk-8",
+    "description": "Obfuscated command execution via PowerShell",
+    "expected_techniques": ["T1059.001", "T1027.010"]
+  },
+  {
+    "alert_id": "splunk-9",
+    "description": "User and account enumeration activity",
+    "expected_techniques": ["T1087"]
+  },
+  {
+    "alert_id": "splunk-10",
+    "description": "Archive created for possible data staging",
+    "expected_techniques": ["T1560"]
+  }
+]

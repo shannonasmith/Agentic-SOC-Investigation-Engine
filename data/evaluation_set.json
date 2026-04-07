@@ -1,0 +1,50 @@
+[
+  {
+    "alert_id": "E-001",
+    "alert": {
+      "event_type": "authentication_failure",
+      "details": "Multiple failed login attempts against admin account",
+      "target_user": "admin",
+      "source_ip": "192.168.1.50"
+    },
+    "expected_techniques": ["T1110", "T1110.003"]
+  },
+  {
+    "alert_id": "E-002",
+    "alert": {
+      "event_type": "process_execution",
+      "process_name": "powershell.exe",
+      "command_line": "powershell -EncodedCommand aGVsbG8=",
+      "details": "Encoded PowerShell command execution"
+    },
+    "expected_techniques": ["T1059.001"]
+  },
+  {
+    "alert_id": "E-003",
+    "alert": {
+      "event_type": "remote_execution",
+      "process_name": "psexec.exe",
+      "details": "Remote service execution using PsExec",
+      "destination_ip": "10.0.0.25"
+    },
+    "expected_techniques": ["T1569.002", "T1021"]
+  },
+  {
+    "alert_id": "E-004",
+    "alert": {
+      "event_type": "credential_access",
+      "details": "Dumping LSASS memory using mimikatz",
+      "process_name": "mimikatz.exe"
+    },
+    "expected_techniques": ["T1003"]
+  },
+  {
+    "alert_id": "E-005",
+    "alert": {
+      "event_type": "persistence",
+      "details": "Registry run key added for persistence",
+      "process_name": "reg.exe"
+    },
+    "expected_techniques": ["T1547.001"]
+  }
+]

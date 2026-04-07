@@ -1,0 +1,9 @@
+{
+  "10.0.0.10": { "name": "DC01", "criticality": 10 },
+  "10.0.0.20": { "name": "WS01", "criticality": 5 },
+  "10.0.0.22": { "name": "PRINT01", "criticality": 7 },
+  "10.0.0.23": { "name": "WS02", "criticality": 5 },
+  "10.0.0.25": { "name": "APP01", "criticality": 6 },
+  "10.0.0.40": { "name": "ADMIN-BOX", "criticality": 8 },
+  "10.0.0.60": { "name": "WEB01", "criticality": 9 }
+}
