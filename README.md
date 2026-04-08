@@ -151,59 +151,9 @@ Build a system that behaves like a **junior SOC analyst**, capable of:
 
 ---
 
-## 🔍 How the System Works (Under the Hood)
+## 👀 What the Investigation Looks Like in Practice
 
-The following sections show how the system operates internally.
-
----
-
-## 🧠 SOC Investigation Workflow
-
-| Stage | Description |
-|------|------------|
-| 🟦 Raw Security Alert | Alert ingestion from SIEM |
-| 🟨 Triage + ATT&CK Mapping | Behavioral classification |
-| 🟪 SOAR Playbook Selection | Response logic selection |
-| 🧠 AI-Assisted Analysis | Explanation generation |
-| 🧬 Context Enrichment | IOC, vulnerability, asset context |
-| 🔁 Investigation Loop | Iterative reasoning |
-| 🚨 Response Recommendation | Final decision |
-
----
-
-## ⚙️ 🔬 Technical Pipeline
-
-```text
-Detection
-    ↓
-Triage Scoring
-    ↓
-ATT&CK Retrieval (TF-IDF)
-    ↓
-Semantic Reranking (Embeddings)
-    ↓
-Hybrid ATT&CK Scoring
-    ↓
-SOAR Playbook Selection
-    ↓
-AI Analyst Explanation
-    ↓
-IOC Enrichment
-    ↓
-Vulnerability Context
-    ↓
-Asset Context
-    ↓
-Stateful Investigation Loop
-    ↓
-Response Recommendation
-```
-
----
-
-## 🧠 Key Idea
-
-> Each stage reduces uncertainty and increases confidence until a response decision is made.
+The following steps show how a single alert moves through the system — from ingestion to final response recommendation.
 
 ---
 
@@ -264,6 +214,62 @@ Response Recommendation
 </div>
 
 <p align="center"><em>Threat hunting layer identifying broader attack patterns.</em></p>
+
+---
+
+## 🔍 How the System Works (Under the Hood)
+
+The following sections show how the system is implemented internally.
+
+---
+
+## 🧠 SOC Investigation Workflow
+
+| Stage | Description |
+|------|------------|
+| 🟦 Raw Security Alert | Alert ingestion from SIEM |
+| 🟨 Triage + ATT&CK Mapping | Behavioral classification |
+| 🟪 SOAR Playbook Selection | Response logic selection |
+| 🧠 AI-Assisted Analysis | Explanation generation |
+| 🧬 Context Enrichment | IOC, vulnerability, asset context |
+| 🔁 Investigation Loop | Iterative reasoning |
+| 🚨 Response Recommendation | Final decision |
+
+---
+
+## ⚙️ 🔬 Technical Pipeline
+
+```text
+Detection
+    ↓
+Triage Scoring
+    ↓
+ATT&CK Retrieval (TF-IDF)
+    ↓
+Semantic Reranking (Embeddings)
+    ↓
+Hybrid ATT&CK Scoring
+    ↓
+SOAR Playbook Selection
+    ↓
+AI Analyst Explanation
+    ↓
+IOC Enrichment
+    ↓
+Vulnerability Context
+    ↓
+Asset Context
+    ↓
+Stateful Investigation Loop
+    ↓
+Response Recommendation
+```
+
+---
+
+## 🧠 Key Idea
+
+> Each stage reduces uncertainty and increases confidence until a response decision is made.
 
 ---
 
