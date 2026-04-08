@@ -17,36 +17,143 @@
 
 ---
 
+## ⚡ Quick Start (Run the Project)
+
+Run the full investigation pipeline in minutes.
+
+### 1. Open the project folder
+
+```bash
+cd ~/Agentic-SOC-Investigation-Engine-main
+```
+
+---
+
+### 2. Create and activate a virtual environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+---
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 4. Download MITRE ATT&CK data
+
+```bash
+mkdir -p data/raw
+curl -L "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json" -o data/raw/enterprise-attack.json
+```
+
+---
+
+### 5. Run full demo pipeline
+
+```bash
+chmod +x run_demo.sh
+./run_demo.sh
+```
+
+---
+
+### 📁 Expected Outputs
+
+```text
+output/
+├── mapped_alerts.json
+├── normalized_zeek_alerts.json
+├── threat_hunt_findings.json
+├── coverage_summary.json
+```
+
+---
+
+## 🔄 Evolution: From Detection → Investigation
+
+This project builds directly on the **AI-Assisted SOC + MITRE ATT&CK Mapping Engine**.
+
+### 🧩 Previous Project (Detection-Focused)
+
+```text
+Alert → ATT&CK Mapping → Output
+```
+
+- single-alert analysis  
+- technique classification  
+- scoring + confidence  
+
+---
+
+### 🤖 This Project (Agentic Investigation)
+
+```text
+Alert → Context → Correlation → Investigation → Decision
+```
+
+- multi-step reasoning  
+- alert correlation  
+- enrichment (IOC, vulnerability, asset)  
+- SOAR playbooks  
+- investigation loop  
+- response recommendation  
+
+---
+
+## 👀 What This System Does
+
+Modern SOCs don’t just detect threats — they investigate them.
+
+This system:
+
+- enriches alerts with context  
+- correlates related activity  
+- applies behavioral reasoning  
+- iteratively builds understanding  
+- recommends response actions  
+
+---
+
 ## 🧠 Scenario
 
-Modern Security Operations Centers (SOCs) face a fundamental problem:
+SOC analysts face:
 
-- alerts are noisy and fragmented  
-- context is spread across multiple systems  
-- prioritization is inconsistent  
-- analysts must manually correlate signals  
+- fragmented alerts  
+- missing context  
+- manual correlation  
+- inconsistent prioritization  
 
 Detection alone is not enough.
 
-This project simulates how a SOC can move beyond alert triage into **structured investigation and decision-making**, combining:
+This project simulates a SOC that performs:
 
-- MITRE ATT&CK mapping  
-- contextual enrichment  
-- automated playbooks  
-- iterative investigation  
+> **structured investigation and decision-making**
 
 ---
 
 ## 🎯 Objective
 
-The goal of this project was to design a **production-style SOC investigation pipeline** that transforms raw alerts into actionable, context-aware response decisions.
+Build a system that behaves like a **junior SOC analyst**, capable of:
 
-Instead of treating alerts as isolated events, the system demonstrates how SOC workflows:
+- analyzing alerts  
+- mapping to ATT&CK  
+- enriching context  
+- correlating activity  
+- explaining findings  
+- recommending actions  
 
-- align detections to ATT&CK techniques  
-- enrich alerts with environmental context  
-- iteratively build understanding  
-- generate response recommendations  
+---
+
+## 🔍 How the System Works (Under the Hood)
+
+The following sections show how the system operates internally.
 
 ---
 
@@ -54,159 +161,49 @@ Instead of treating alerts as isolated events, the system demonstrates how SOC w
 
 | Stage | Description |
 |------|------------|
-| 🟦 Raw Security Alert | Alert ingestion from SIEM (Splunk-style input) |
-| 🟨 Triage + ATT&CK Mapping | Classification and behavioral alignment |
-| 🟪 SOAR Playbook Selection | Response logic selected based on behavior |
-| 🧠 AI-Assisted Analysis | Explanation of what is happening and why |
-| 🧬 Context Enrichment | IOC, vulnerability, and asset data added |
-| 🔁 Investigation | Iterative analysis and correlation |
-| 🚨 Response Recommendation | Final actions based on confidence and risk |
-
-🔍 **From Detection → Context → Decision**
+| 🟦 Raw Security Alert | Alert ingestion from SIEM |
+| 🟨 Triage + ATT&CK Mapping | Behavioral classification |
+| 🟪 SOAR Playbook Selection | Response logic selection |
+| 🧠 AI-Assisted Analysis | Explanation generation |
+| 🧬 Context Enrichment | IOC, vulnerability, asset context |
+| 🔁 Investigation Loop | Iterative reasoning |
+| 🚨 Response Recommendation | Final decision |
 
 ---
 
-## ⚙️ 🔬 Inside the System (Technical Pipeline)
-
-### 🧩 From Detection to Decision — Step by Step
+## ⚙️ 🔬 Technical Pipeline
 
 ```text
-🟦 Detection
-       ↓
-🟨 Triage Scoring
-       ↓
-🧠 ATT&CK Candidate Retrieval (TF-IDF)
-       ↓
-🔎 Semantic Reranking (Embeddings)
-       ↓
-⚖️ Hybrid ATT&CK Scoring
-       ↓
-🟪 SOAR Playbook Selection
-       ↓
-🤖 AI Analyst Explanation
-       ↓
-🧬 IOC Enrichment
-       ↓
-⚠️ Vulnerability Context
-       ↓
-🏢 Asset Criticality Context
-       ↓
-🔁 Stateful Investigation Loop
-       ↓
-🚨 Response Recommendation
+Detection
+    ↓
+Triage Scoring
+    ↓
+ATT&CK Retrieval (TF-IDF)
+    ↓
+Semantic Reranking (Embeddings)
+    ↓
+Hybrid ATT&CK Scoring
+    ↓
+SOAR Playbook Selection
+    ↓
+AI Analyst Explanation
+    ↓
+IOC Enrichment
+    ↓
+Vulnerability Context
+    ↓
+Asset Context
+    ↓
+Stateful Investigation Loop
+    ↓
+Response Recommendation
 ```
 
 ---
 
-### 🧠 Key Idea
+## 🧠 Key Idea
 
-This is a **layered decision pipeline**:
-
-> Each stage reduces uncertainty and increases confidence until a response can be recommended.
-
----
-
-## 🔍 ATT&CK Mapping Engine
-
-This system uses a **hybrid ATT&CK mapping approach** rather than simple keyword matching.
-
-- TF-IDF retrieves candidate techniques  
-- embeddings improve semantic understanding  
-- rule-based scoring reinforces known behaviors  
-- contextual scoring refines results  
-- confidence ranking determines final output  
-
----
-
-## 🧠 Why This Mapping Works
-
-Mapping alerts to ATT&CK is difficult because:
-
-- alerts are incomplete  
-- behaviors overlap  
-- keyword matching is unreliable  
-
-### Design Approach
-
-1. Retrieval ensures correct candidates  
-2. Semantic matching captures meaning  
-3. Behavioral rules improve precision  
-4. Context refines results  
-5. Confidence ranks outcomes  
-
----
-
-### 🎯 Key Insight
-
-> Retrieval determines what is possible — scoring determines what is likely.
-
----
-
-### 🧪 Validation
-
-- brute force → T1110  
-- web shell → T1505.003  
-- payload transfer → T1105  
-
-Results:
-- Top-1 accuracy ≈ 0.80  
-- Top-3 accuracy ≈ 0.90  
-
----
-
-## 🧠 Why This Matters in a SOC
-
-### 🔍 Alerts Are Not Isolated
-The system correlates:
-- IOCs  
-- vulnerabilities  
-- assets  
-
----
-
-### 🔄 Investigation Is Iterative
-Each step:
-- gathers new data  
-- updates confidence  
-- refines decisions  
-
----
-
-### ⚖️ Context Drives Priority
-The system considers:
-- asset value  
-- exploitability  
-- behavioral risk  
-
----
-
-### 🧠 Decisions Are Explainable
-- investigation steps are logged  
-- reasoning is visible  
-- actions are justified  
-
----
-
-### 🚀 From Detection → Decision
-
-This system moves beyond detection into:
-
-- investigation  
-- correlation  
-- response recommendation  
-
----
-
-## ⚙️ Core Capabilities
-
-- ATT&CK mapping (hybrid scoring)  
-- SOAR playbooks  
-- AI-assisted analysis  
-- IOC enrichment  
-- vulnerability-aware prioritization  
-- asset-aware decisioning  
-- threat hunting insights  
-- stateful investigation workflow  
+> Each stage reduces uncertainty and increases confidence until a response decision is made.
 
 ---
 
@@ -216,7 +213,7 @@ This system moves beyond detection into:
   <img src="images/01-ingestion-pipeline.png" width="700">
 </div>
 
-<p align="center"><em>Figure 3. Logs ingested and normalized into structured alerts for analysis.</em></p>
+<p align="center"><em>Logs ingested and normalized into structured alerts.</em></p>
 
 ---
 
@@ -226,7 +223,7 @@ This system moves beyond detection into:
   <img src="images/02-attack-mapping-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 4. Ranked ATT&CK techniques with confidence scoring.</em></p>
+<p align="center"><em>Ranked ATT&CK techniques with confidence scoring.</em></p>
 
 ---
 
@@ -236,7 +233,7 @@ This system moves beyond detection into:
   <img src="images/03-soar-ai-analyst-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 5. Playbook execution and analyst explanation.</em></p>
+<p align="center"><em>Playbook execution and analyst-style reasoning output.</em></p>
 
 ---
 
@@ -246,7 +243,7 @@ This system moves beyond detection into:
   <img src="images/04-asset-vuln-context.png" width="700">
 </div>
 
-<p align="center"><em>Figure 6. Context enrichment influencing prioritization.</em></p>
+<p align="center"><em>Context enrichment influencing prioritization.</em></p>
 
 ---
 
@@ -256,7 +253,7 @@ This system moves beyond detection into:
   <img src="images/05-investigation-agent-output.png" width="700">
 </div>
 
-<p align="center"><em>Figure 7. Agent recommending response actions after confidence threshold is reached.</em></p>
+<p align="center"><em>Agent recommending response actions based on accumulated evidence.</em></p>
 
 ---
 
@@ -266,17 +263,17 @@ This system moves beyond detection into:
   <img src="images/06-threat-hunting-findings.png" width="700">
 </div>
 
-<p align="center"><em>Figure 8. Threat hunting layer identifying broader attack patterns.</em></p>
+<p align="center"><em>Threat hunting layer identifying broader attack patterns.</em></p>
 
 ---
 
-## 🧠 Engine Breakdown (How It Works)
+## 🧠 Engine Breakdown
 
 <div align="center">
   <img src="images/07-project-structure.png" width="700">
 </div>
 
-<p align="center"><em>Figure 9. Project structure showing separation of pipeline, modules, and core engine logic.</em></p>
+<p align="center"><em>Project structure separating pipeline, modules, and engine logic.</em></p>
 
 ---
 
@@ -284,7 +281,7 @@ This system moves beyond detection into:
   <img src="images/08-core-engine-structure.png" width="700">
 </div>
 
-<p align="center"><em>The core engine manages ATT&CK ingestion, preprocessing, embedding generation, and mapping orchestration.</em></p>
+<p align="center"><em>Core engine orchestrating ingestion, preprocessing, and mapping.</em></p>
 
 ---
 
@@ -292,7 +289,7 @@ This system moves beyond detection into:
   <img src="images/09-modules-layout.png" width="700">
 </div>
 
-<p align="center"><em>Modules separate concerns such as AI reasoning, SOAR logic, vulnerability context, and threat hunting.</em></p>
+<p align="center"><em>Modules handling AI reasoning, SOAR logic, enrichment, and threat hunting.</em></p>
 
 ---
 
@@ -300,7 +297,7 @@ This system moves beyond detection into:
   <img src="images/10-attack-corpus-source.png" width="700">
 </div>
 
-<p align="center"><em>The ATT&CK dataset is transformed into a structured corpus used for retrieval and scoring.</em></p>
+<p align="center"><em>ATT&CK dataset transformed into structured corpus.</em></p>
 
 ---
 
@@ -308,7 +305,7 @@ This system moves beyond detection into:
   <img src="images/11-tfidf-retrieval-test.png" width="700">
 </div>
 
-<p align="center"><em>TF-IDF retrieves candidate techniques before deeper semantic analysis.</em></p>
+<p align="center"><em>TF-IDF retrieves candidate techniques.</em></p>
 
 ---
 
@@ -316,7 +313,7 @@ This system moves beyond detection into:
   <img src="images/12-scoring-logic.png" width="700">
 </div>
 
-<p align="center"><em>Rule-based scoring reinforces known behaviors and improves mapping precision.</em></p>
+<p align="center"><em>Behavior-based scoring improves mapping precision.</em></p>
 
 ---
 
@@ -324,7 +321,7 @@ This system moves beyond detection into:
   <img src="images/13-zeek-ingestion-success.png" width="700">
 </div>
 
-<p align="center"><em>Zeek logs are successfully ingested and normalized into structured alerts.</em></p>
+<p align="center"><em>Zeek logs successfully ingested.</em></p>
 
 ---
 
@@ -332,7 +329,7 @@ This system moves beyond detection into:
   <img src="images/14-normalized-alerts-preview.png" width="700">
 </div>
 
-<p align="center"><em>Alerts are standardized into a consistent schema for processing.</em></p>
+<p align="center"><em>Alerts standardized into consistent schema.</em></p>
 
 ---
 
@@ -340,7 +337,7 @@ This system moves beyond detection into:
   <img src="images/15-analysis-output-files.png" width="700">
 </div>
 
-<p align="center"><em>The system generates structured outputs including mappings, summaries, and reports.</em></p>
+<p align="center"><em>System generates structured outputs.</em></p>
 
 ---
 
@@ -348,7 +345,7 @@ This system moves beyond detection into:
   <img src="images/16-web-shell-detection-result.png" width="700">
 </div>
 
-<p align="center"><em>Example detection of web shell activity mapped to ATT&CK technique T1505.003.</em></p>
+<p align="center"><em>Example web shell detection mapped to ATT&CK.</em></p>
 
 ---
 
@@ -372,100 +369,31 @@ Recommended Next Steps:
 
 ## 💡 What This Project Demonstrates
 
-- SOC alert triage  
+- SOC investigation workflows  
 - ATT&CK-based detection engineering  
-- contextual investigation workflows  
-- automation and decision support  
-- real-world SOC reasoning patterns  
+- correlation + enrichment  
+- agentic reasoning systems  
+- decision-support automation  
 
 ---
 
-## ⚙️ How to Run
+## 💼 SOC Relevance
 
-### 1. Clone the Repository
+Simulates:
 
-```bash
-git clone https://github.com/YOUR_USERNAME/Agentic-SOC-Investigation-Engine.git
-cd Agentic-SOC-Investigation-Engine
-```
-
----
-
-### 2. Create Virtual Environment
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-> ⚠️ Kali Linux users: ensure you are using a virtual environment to avoid package conflicts.
-
----
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-### 4. Run Full Demo Pipeline (Recommended)
-
-```bash
-chmod +x run_demo.sh
-./run_demo.sh
-```
-
-This will:
-- ingest sample logs
-- perform ATT&CK mapping
-- execute SOAR logic
-- run the investigation agent
-- generate output files
-
----
-
-### 5. Run Manually (Optional)
-
-```bash
-python run.py
-```
-
----
-
-### 📁 Expected Outputs
-
-After execution, the following files will be generated:
-
-```text
-output/
-├── mapped_alerts.json
-├── normalized_zeek_alerts.json
-├── threat_hunt_findings.json
-├── coverage_summary.json
-```
-
----
-
-### 🧪 Sample Data
-
-This project includes sample data located in:
-
-```text
-data/sample/
-```
-
-This allows the pipeline to run without external integrations.
+- Tier 1 / Tier 2 analyst workflows  
+- incident investigation  
+- threat prioritization  
+- response decision-making  
 
 ---
 
 ## 🚧 Future Improvements
 
-- SIEM API integration  
-- EDR/XDR telemetry  
-- streaming pipelines  
+- real-time ingestion  
+- SIEM/XDR integration  
 - threat intelligence feeds  
+- autonomous response actions  
 
 ---
 
@@ -474,11 +402,5 @@ This allows the pipeline to run without external integrations.
 ## 👤 Shannon Smith  
 
 Cybersecurity | SOC Operations • Detection Engineering • Incident Response  
-
-U.S. Navy Veteran | Virginia Tech — M.S. Information Technology  
-
-🛡️ Investigating and correlating security events across systems  
-🔎 Designing ATT&CK-aligned detection workflows  
-⚙️ Building automation to improve SOC efficiency  
 
 </div>
