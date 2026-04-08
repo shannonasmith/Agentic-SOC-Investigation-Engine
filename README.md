@@ -76,34 +76,72 @@ output/
 
 ---
 
-## 🔄 Evolution: From Detection → Investigation
+## 🧬 Project Evolution: From Alert Analysis → Agentic Investigation
 
-This project builds directly on the **AI-Assisted SOC + MITRE ATT&CK Mapping Engine**.
-
-### 🧩 Previous Project (Detection-Focused)
-
-```text
-Alert → ATT&CK Mapping → Output
-```
-
-- single-alert analysis  
-- technique classification  
-- scoring + confidence  
+This project is the latest stage in a progression of increasingly advanced SOC systems.
 
 ---
 
-### 🤖 This Project (Agentic Investigation)
+### 🔍 Phase 1 — SOC Alert Analyzer  
+
+- processed and normalized security alerts  
+- extracted key fields (IP, user, event type)  
+- performed initial triage and severity classification  
+
+👉 Focus: **alert parsing and triage**
+
+Repository: https://github.com/shannonasmith/AI-Assisted-SOC-Alert-Analyzer
+
+---
+
+### 🛡️ Phase 2 — ATT&CK Mapping Engine  
+
+- mapped alerts to MITRE ATT&CK techniques  
+- introduced hybrid scoring (TF-IDF + embeddings + rules)  
+- improved detection accuracy and explainability  
+
+👉 Focus: **classification and structured analysis**
+
+Repository: https://github.com/shannonasmith/AI-Assisted-SOC-MITRE-ATTACK-Mapping-Engine
+
+---
+
+### 🤖 Phase 3 — Agentic SOC Investigation Engine (Current Project)  
+
+- correlates alerts across entities  
+- enriches context (IOC, vulnerability, asset)  
+- applies behavioral reasoning  
+- simulates SOC investigation workflows  
+- recommends response actions  
+
+👉 Focus: **investigation, reasoning, and decision support**
+
+---
+
+## 🎯 Key Progression
 
 ```text
-Alert → Context → Correlation → Investigation → Decision
+Alert Parsing → Classification → Investigation → Decision
 ```
 
-- multi-step reasoning  
-- alert correlation  
-- enrichment (IOC, vulnerability, asset)  
-- SOAR playbooks  
-- investigation loop  
-- response recommendation  
+Each phase increases:
+
+- context  
+- accuracy  
+- autonomy  
+- analyst support  
+
+---
+
+## 🧠 Why This Matters
+
+Modern SOCs are evolving from:
+
+- isolated alert analysis  
+→ structured detection  
+→ context-aware investigation systems  
+
+This progression reflects that shift toward **agentic security operations**.
 
 ---
 
