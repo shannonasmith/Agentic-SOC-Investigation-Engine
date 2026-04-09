@@ -63,7 +63,7 @@ The goal of this phase is to demonstrate:
 - asset context  
 - SOAR playbooks  
 - investigation loop  
-- response recommendation  
+- response recommendation   
 
 ---
 
@@ -72,16 +72,6 @@ The goal of this phase is to demonstrate:
 ```text
 Alert Parsing → Classification → Investigation → Decision
 ```
-
----
-
-## 🧠 System Role
-
-This repository builds on earlier phases:
-
-- Phase 1 → establishes alert understanding  
-- Phase 2 → improves detection accuracy  
-- Phase 3 → enables reasoning and decision-making  
 
 ---
 
