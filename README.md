@@ -153,10 +153,9 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/01-ingestion-pipeline.png" width="700">
 </div>
 
-### 📥 Input
+### 🔍 Processing
 
 - alerts are ingested and normalized into structured inputs  
-- prepares data for downstream correlation and enrichment  
 
 ---
 
@@ -166,10 +165,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/02-attack-mapping-output.png" width="700">
 </div>
 
-### 🧠 Context
+### 🧠 Observations
 
-- detections are mapped to ATT&CK techniques  
-- establishes behavioral context for investigation 
+- detections provide initial behavioral context  
+- mapping alone is insufficient for full investigation
 
 ---
 
@@ -179,10 +178,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/03-soar-ai-analyst-output.png" width="700">
 </div>
 
-### ⚖️ Reasoning
+### 📊 Output Includes
 
-- playbooks determine next investigative actions  
-- AI generates structured explanations for analyst review
+- playbook-driven investigation steps  
+- structured analyst-style explanations 
   
 ---
 
@@ -192,10 +191,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/04-asset-vuln-context.png" width="700">
 </div>
 
-### 🔗 Enrichment
+### 🔎 Findings
 
-- IOC, vulnerability, and asset data are added  
-- increases confidence and prioritization accuracy
+- enriched data increases confidence in prioritization  
+- additional context reveals deeper attack patterns 
   
 ---
 
@@ -205,10 +204,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/05-investigation-agent-output.png" width="700">
 </div>
 
-### 📊 Decision
+### 🧠 Insight
 
-- system produces response recommendations  
-- decisions are based on accumulated evidence   
+- decisions are driven by accumulated evidence  
+- automation reduces manual analysis effort  
 
 ---
 
@@ -220,8 +219,8 @@ The following steps show how a single alert moves through the system — from in
 
 ### 🌐 Expansion
 
-- related activity is identified across the environment  
-- expands investigation beyond the initial alert 
+- investigation expands beyond the initial alert  
+- identifies related activity across the environment  
 
 ---
 
