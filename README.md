@@ -82,7 +82,8 @@ This project is the latest stage in a progression of increasingly advanced SOC s
 
 ---
 
-### 🔍 Phase 1 — SOC Alert Analyzer  
+### 🔍 Phase 1 — [SOC Alert Analyzer](https://github.com/shannonasmith/AI-Assisted-SOC-Alert-Analyzer) 🔗  
+
 
 - processed and normalized security alerts  
 - extracted key fields (IP, user, event type)  
@@ -90,19 +91,16 @@ This project is the latest stage in a progression of increasingly advanced SOC s
 
 👉 Focus: **alert parsing and triage**
 
-Repository: https://github.com/shannonasmith/AI-Assisted-SOC-Alert-Analyzer
-
 ---
 
-### 🛡️ Phase 2 — ATT&CK Mapping Engine  
+### 🛡️ Phase 2 — [ATT&CK Mapping Engine](https://github.com/shannonasmith/AI-Assisted-SOC-MITRE-ATTACK-Mapping-Engine) 🔗  
+ 
 
 - mapped alerts to MITRE ATT&CK techniques  
 - introduced hybrid scoring (TF-IDF + embeddings + rules)  
 - improved detection accuracy and explainability  
 
 👉 Focus: **classification and structured analysis**
-
-Repository: https://github.com/shannonasmith/AI-Assisted-SOC-MITRE-ATTACK-Mapping-Engine
 
 ---
 
