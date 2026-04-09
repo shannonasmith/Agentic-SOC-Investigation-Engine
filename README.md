@@ -276,6 +276,14 @@ Simulates:
 
 ---
 
+## 🧬 Project Progression
+
+This project is part of a **multi-phase SOC system**:
+
+[SOC Alert Analyzer](https://github.com/shannonasmith/AI-Assisted-SOC-Alert-Analyzer) → [ATT&CK Mapping Engine](https://github.com/shannonasmith/AI-Assisted-SOC-MITRE-ATTACK-Mapping-Engine) → **Agentic SOC Investigation Engine (current)**
+
+---
+
 ## 🚧 Future Improvements
 
 - real-time ingestion  
