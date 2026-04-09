@@ -11,7 +11,7 @@
 </div>
 
 <div align="center">
-  <img src="images/demo.gif" width="1000">
+  <img src="images/demo.gif" width="900">
 </div>
 
 <p align="center"><em>End-to-end SOC investigation pipeline demonstrating ingestion → detection → analysis → response.</em></p>
