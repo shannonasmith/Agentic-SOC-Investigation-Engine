@@ -67,14 +67,6 @@ The goal of this phase is to demonstrate:
 
 ---
 
-## 📈 Capability Progression
-
-```text
-Alert Parsing → Classification → Investigation → Decision
-```
-
----
-
 ## 🧠 SOC Investigation Workflow
 
 | Stage | Description |
