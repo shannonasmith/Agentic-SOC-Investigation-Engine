@@ -161,7 +161,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/01-ingestion-pipeline.png" width="700">
 </div>
 
-<p align="center"><em>Logs ingested and normalized into structured alerts.</em></p>
+### 📥 Input
+
+- alerts are ingested and normalized into structured inputs  
+- prepares data for downstream correlation and enrichment  
 
 ---
 
@@ -171,7 +174,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/02-attack-mapping-output.png" width="700">
 </div>
 
-<p align="center"><em>Ranked ATT&CK techniques with confidence scoring.</em></p>
+### 🧠 Context
+
+- detections are mapped to ATT&CK techniques  
+- establishes behavioral context for investigation 
 
 ---
 
@@ -181,8 +187,11 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/03-soar-ai-analyst-output.png" width="700">
 </div>
 
-<p align="center"><em>Playbook execution and analyst-style reasoning output.</em></p>
+### ⚖️ Reasoning
 
+- playbooks determine next investigative actions  
+- AI generates structured explanations for analyst review
+  
 ---
 
 ### 🧬 Step 4 — Vulnerability + Asset Context
@@ -191,8 +200,11 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/04-asset-vuln-context.png" width="700">
 </div>
 
-<p align="center"><em>Context enrichment influencing prioritization.</em></p>
+### 🔗 Enrichment
 
+- IOC, vulnerability, and asset data are added  
+- increases confidence and prioritization accuracy
+  
 ---
 
 ### 🤖 Step 5 — Investigation Agent
@@ -201,7 +213,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/05-investigation-agent-output.png" width="700">
 </div>
 
-<p align="center"><em>Agent recommending response actions based on accumulated evidence.</em></p>
+### 📊 Decision
+
+- system produces response recommendations  
+- decisions are based on accumulated evidence   
 
 ---
 
@@ -211,7 +226,10 @@ The following steps show how a single alert moves through the system — from in
   <img src="images/06-threat-hunting-findings.png" width="700">
 </div>
 
-<p align="center"><em>Threat hunting layer identifying broader attack patterns.</em></p>
+### 🌐 Expansion
+
+- related activity is identified across the environment  
+- expands investigation beyond the initial alert 
 
 ---
 
